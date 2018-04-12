@@ -560,6 +560,7 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
         filenumber.close()
 
         j += 1
+        endOfProgram()
 
 
 def endOfProgram(fatalerror = 0):
