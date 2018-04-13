@@ -450,9 +450,32 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
                 if (name[i] == starname):
                     starnum = i
             i += 1
-
-        tstellar = check_temp_kelsey(temperature[j], temp, starnum, diffuse[j])
-        lstar = check_lstar_kelsey(luminosity[j], luminositycalc, starnum, diffuse[j])
+        if (isinstance(temperature,list)):
+            if(isinstance(diffuse,list)):
+                tstellar = check_temp_kelsey(temperature[j], temp, starnum, diffuse[j])
+                if(isinstance(luminosity, list)):
+                    lstar = check_lstar_kelsey(luminosity[j], luminositycalc, starnum, diffuse[j])
+                else:
+                    lstar = check_lstar_kelsey(luminosity, luminositycalc, starnum, diffuse[j])
+            else:
+                tstellar = check_temp_kelsey(temperature[j], temp, starnum, diffuse)
+                if (isinstance(luminosity, list)):
+                    lstar = check_lstar_kelsey(luminosity[j], luminositycalc, starnum, diffuse)
+                else:
+                    lstar = check_lstar_kelsey(luminosity, luminositycalc, starnum, diffuse)
+        else:
+            if (isinstance(diffuse, list)):
+                tstellar = check_temp_kelsey(temperature, temp, starnum, diffuse[j])
+                if (isinstance(luminosity, list)):
+                    lstar = check_lstar_kelsey(luminosity[j], luminositycalc, starnum, diffuse[j])
+                else:
+                    lstar = check_lstar_kelsey(luminosity, luminositycalc, starnum, diffuse[j])
+            else:
+                tstellar = check_temp_kelsey(temperature, temp, starnum, diffuse)
+                if (isinstance(luminosity, list)):
+                    lstar = check_lstar_kelsey(luminosity[j], luminositycalc, starnum, diffuse)
+                else:
+                    lstar = check_lstar_kelsey(luminosity, luminositycalc, starnum, diffuse)
         if (errorcheck == "errorcheck"):
             print('ts=', tstellar)
             print('ls=', lstar)
@@ -473,7 +496,10 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
     #MAKE THE INPUT.IN FILES!!!
         if (errorcheck == "errorcheck"):
             print('calling input.in making function')
-        make_input_kelsey(j, distributionFile, torus, diffuse, n, luminosity, tstellar, nphotons, lstar, numiterations, convpercent, rin, rout, symmetric, username, nduststr[j])
+        if(isinstance(nduststr,list)):
+            make_input_kelsey(j, distributionFile, torus, diffuse, n, luminosity, tstellar, nphotons, lstar, numiterations, convpercent, rin, rout, symmetric, username, nduststr[j])
+        else:
+            make_input_kelsey(j, distributionFile, torus, diffuse, n, luminosity, tstellar, nphotons, lstar, numiterations, convpercent, rin, rout, symmetric, username, nduststr)
 
     #MAKE THE WAVELENGTH RESOLUTION FILE...
         makenuryd(diffuse[j], old)
