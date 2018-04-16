@@ -183,12 +183,12 @@ def check_temp_kelsey(temperature, temp, starnum, diffuse, errorcheck = "errorch
     if (temperature > 0):
         tstellar = temperature
         if (errorcheck == "errorcheck"):
-            print("user supplied a temperature, so we are using temperature " + tstellar)
+            print("user supplied a temperature, so we are using temperature " + str(tstellar))
     elif (tstellar <= 0):
         if (starnum > -1):  #if the star is in the list...
             tstellar = temp[starnum]
             if (errorcheck == "errorcheck"):
-                print('found temperature from file, that temperature is ' + tstellar)
+                print('found temperature from file, that temperature is ' + str(tstellar))
         else: #if not in list use a default
             if diffuse:
                 default=6000.0
@@ -196,13 +196,13 @@ def check_temp_kelsey(temperature, temp, starnum, diffuse, errorcheck = "errorch
                 default=3500.0
         tstellar = default
         if (errorcheck == "errorcheck"):
-            print("deafulting to temp of " + tstellar)
+            print("deafulting to temp of " + str(tstellar))
 
     if (starnum > -1):
         if (temperature > 0 and temperature != temp[starnum]):
             if (errorcheck == "errorcheck"):
                 print("Temp in kelsey_input is different than RSG_info.txt (in Bill's folder)")
-                print("TStellar= " + tstellar)
+                print("TStellar= " + str(tstellar))
                 print("temp from RSG_info.txt is " + temp[starnum])
     return(tstellar)
 

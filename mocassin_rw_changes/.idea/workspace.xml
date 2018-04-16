@@ -24,8 +24,8 @@
       <file leaf-file-name="SUPER_KELSEY.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SUPER_KELSEY.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2322">
-              <caret line="305" column="30" lean-forward="true" selection-start-line="305" selection-start-column="30" selection-end-line="305" selection-end-column="30" />
+            <state relative-caret-position="78">
+              <caret line="172" column="9" lean-forward="true" selection-start-line="172" selection-start-column="9" selection-end-line="172" selection-end-column="9" />
               <folding>
                 <element signature="e#91#109#0" expanded="true" />
               </folding>
@@ -106,6 +106,7 @@
       <find>nduststr</find>
       <find>silicatepercent</find>
       <find>AMCpercent</find>
+      <find>check_temp_kelsey</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -115,9 +116,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-10" />
-    <option name="width" value="980" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="709" />
+    <option name="y" value="59" />
+    <option name="width" value="1174" />
     <option name="height" value="1030" />
   </component>
   <component name="ProjectView">
@@ -189,7 +191,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1765625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -284,8 +286,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SUPER_KELSEY.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2322">
-          <caret line="305" column="30" lean-forward="true" selection-start-line="305" selection-start-column="30" selection-end-line="305" selection-end-column="30" />
+        <state relative-caret-position="78">
+          <caret line="172" column="9" lean-forward="true" selection-start-line="172" selection-start-column="9" selection-end-line="172" selection-end-column="9" />
           <folding>
             <element signature="e#91#109#0" expanded="true" />
           </folding>
