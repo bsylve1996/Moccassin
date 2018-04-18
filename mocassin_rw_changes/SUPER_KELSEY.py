@@ -212,12 +212,12 @@ def check_lstar_kelsey(luminosity, luminositycalc, starnum, diffuse, errorcheck 
     if (luminosity > 0):
         lstar = luminosity
         if (errorcheck == "errorcheck"):
-            print("user supplied a luminosity, so we are using luminosity " + lstar)
+            print("user supplied a luminosity, so we are using luminosity " + str(lstar))
     else:
         if (starnum > -1):
             lstar = luminositycalc[starnum]
             if (errorcheck == "errorcheck"):
-                print('found luminosity from file, that luminosity is ' + lstar)
+                print('found luminosity from file, that luminosity is ' + str(lstar))
         else:      #SN DEFAULT........RSG DEFAULT
             default=650.0
             if (errorcheck == "errorcheck"):
