@@ -365,6 +365,7 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
                 import pymsgbox as p
                 p.alert(text='ERROR', title='REMEMBER TO CHANGE KELSEY_INPUT_GRAINSPECIES.TXT', button='OK')
                 endOfProgram(1)
+                sys.exit()
     else:
         if len(percent1) < numrows:
             percent1 = np.repeat(0, numrows)
@@ -383,6 +384,7 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
                 import pymsgbox as p
                 p.alert(text='ERROR', title='REMEMBER TO CHANGE KELSEY_INPUT_GRAINSPECIES.TXT', button='OK')
                 endOfProgram(1)
+                sys.exit()
 
 
     #temperature and luminosity are optional, set to 0 if unknown
@@ -485,8 +487,10 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
         nduststr = np.loadtxt('nDust.list', dtype='str', unpack=True)
 
         cd_kelsey('/Users/' + username + '/mocassin-rw_changes')
-
-        n[j] = floor(n[j])
+        if (isinstance(n,list)):
+            n[j] = floor(n[j])
+        else:
+            n = floor(n)
 
     #MAKE THE GRAINSPECIES FILES!!!
         if (errorcheck == "errorcheck"):
@@ -502,7 +506,10 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
             make_input_kelsey(j, distributionFile, torus, diffuse, n, luminosity, tstellar, nphotons, lstar, numiterations, convpercent, rin, rout, symmetric, username, nduststr)
 
     #MAKE THE WAVELENGTH RESOLUTION FILE...
-        makenuryd(diffuse[j], old)
+        if (isinstance(diffuse, list)):
+            makenuryd(diffuse[j], old)
+        else:
+            makenuryd(diffuse, old)
 
         if (includePAHS == 1):
             makeGrainSizeDistribution(20, 3.5, 3.548e-04, .25, 'PAH_sizes.dat', username)
@@ -540,12 +547,15 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
                 print('Mocassin = epic fail!')
             os.system("rm test1.txt")
             if (successtest == 0):
-                mocassin_fail_kelsey(j, username, diffuse, os.getcwd(), outfoldername, starname[j])
+                if (isinstance(starname, list)):
+                    mocassin_fail_kelsey(j, username, diffuse, os.getcwd(), outfoldername, starname[j])
+                else:
+                    mocassin_fail_kelsey(j, username, diffuse, os.getcwd(), outfoldername, starname)
             runcounter += 1
 
             if (successtest == 1):
                 totaltime = time.time() - start_time
-            print('Total run time is ' + ssi(totaltime) + ' seconds (' + ssi((totaltime) / 60.0) + ')')
+            print('Total run time is ' + str(ssi(totaltime)) + ' seconds (' + str(ssi((totaltime) / 60.0)) + ')')
             outfoldername = 'str'
             if (errorcheck == "errorcheck"):
                 print('ENTERING KELSEY MOCPLOT')
