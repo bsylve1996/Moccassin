@@ -495,7 +495,16 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
     #MAKE THE GRAINSPECIES FILES!!!
         if (errorcheck == "errorcheck"):
             print('calling grainspecies function')
-        make_grainspecies_kelsey(name_gs, filename_gs, percent_gs, silicatepercent[j], AMCpercent[j])
+        if (isinstance(silicatepercent, list)):
+            if(isinstance(AMCpercent, list)):
+                make_grainspecies_kelsey(name_gs, filename_gs, percent_gs, silicatepercent[j], AMCpercent[j])
+            else:
+                make_grainspecies_kelsey(name_gs, filename_gs, percent_gs, silicatepercent[j], AMCpercent)
+        else:
+            if (isinstance(AMCpercent, list)):
+                make_grainspecies_kelsey(name_gs, filename_gs, percent_gs, silicatepercent, AMCpercent[j])
+            else:
+                make_grainspecies_kelsey(name_gs, filename_gs, percent_gs, silicatepercent, AMCpercent)
 
     #MAKE THE INPUT.IN FILES!!!
         if (errorcheck == "errorcheck"):
@@ -559,31 +568,57 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
             outfoldername = 'str'
             if (errorcheck == "errorcheck"):
                 print('ENTERING KELSEY MOCPLOT')
-            mk.mocplot_KELSEY(rin[j], rout[j], p[j], lstar, tstellar, starname[j], diffuse[j], distance[j], symmetric[j], username, outfoldername, starnum, torus[j], silicatepercent[j], AMCpercent[j], name_gs, filename_gs, percent_gs, totaltime, infile, nduststr[j], distributionFile)
+            if (isinstance(rin, list)):
+                mk.mocplot_KELSEY(rin[j], rout[j], p[j], lstar, tstellar, starname[j], diffuse[j], distance[j], symmetric[j], username, outfoldername, starnum, torus[j], silicatepercent[j], AMCpercent[j], name_gs, filename_gs, percent_gs, totaltime, infile, nduststr[j], distributionFile)
+            else:
+                mk.mocplot_KELSEY(rin, rout, p, lstar, tstellar, starname, diffuse, distance, symmetric, username, outfoldername, starnum, torus, silicatepercent, AMCpercent, name_gs, filename_gs, percent_gs, totaltime, infile, nduststr, distributionFile)
             if (errorcheck == "errorcheck"):
                 print('leaving mocplot')
 
         cd_kelsey('/Users/' + username + '/mocassin-rw_changes')
 
     #make an KELSEY output with what KELSEY did.
+        if (isinstance(n, list)):
+            filenumber.write(starname[j], n[j], rin[j], rout[j], p[j], nphotons[j],numiterations[j], convpercent[j], diffuse[j], temperature[j], luminosity[j], silicatepercent[j], AMCpercent[j], torus[j])
 
-        filenumber.write(starname[j], n[j], rin[j], rout[j], p[j], nphotons[j],numiterations[j], convpercent[j], diffuse[j], temperature[j], luminosity[j], silicatepercent[j], AMCpercent[j], torus[j])
+            filenumber.write("inputs to mocplot")
+            filenumber.write(rin[j], rout[j], p[j], lstar, tstellar, ' ' + starname[j], diffuse[j], ' ' + username, ' ' + outfoldername, starnum, torus[j], silicatepercent[j], AMCpercent[j], ' ' + name_gs[0], ' ' + name_gs[1], ' ' + name_gs[2], ' ' + name_gs[3], ' ' + filename_gs[0], ' ' + filename_gs[1], ' ' + filename_gs[2], ' ' + filename_gs[3], percent_gs[0], percent_gs[1], percent_gs[2], percent_gs[3])
+            filenumber.write("starname        ", starname[j])
+            filenumber.write("n               ", n[j])
+            filenumber.write("rin             ", rin[j])
+            filenumber.write("rout            ", rout[j])
+            filenumber.write("p               ", p[j])
+            filenumber.write("nphotons        ", nphotons[j])
+            filenumber.write("numiterations   ", numiterations[j])
+            filenumber.write("convpercent     ", convpercent[j])
+            filenumber.write("diffuse         ", diffuse[j])
+            filenumber.write("temperature     ", temperature[j])
+            filenumber.write("luminosity      ", luminosity[j])
+            filenumber.write("silicatepercent ", silicatepercent[j])
+            filenumber.write("AMCpercent      ", AMCpercent[j])
+        else:
+            filenumber.write(starname, n, rin, rout, p, nphotons, numiterations, convpercent,
+                             diffuse, temperature, luminosity, silicatepercent, AMCpercent, torus)
 
-        filenumber.write("inputs to mocplot")
-        filenumber.write(rin[j], rout[j], p[j], lstar, tstellar, ' ' + starname[j], diffuse[j], ' ' + username, ' ' + outfoldername, starnum, torus[j], silicatepercent[j], AMCpercent[j], ' ' + name_gs[0], ' ' + name_gs[1], ' ' + name_gs[2], ' ' + name_gs[3], ' ' + filename_gs[0], ' ' + filename_gs[1], ' ' + filename_gs[2], ' ' + filename_gs[3], percent_gs[0], percent_gs[1], percent_gs[2], percent_gs[3])
-        filenumber.write("starname        ", starname[j])
-        filenumber.write("n               ", n[j])
-        filenumber.write("rin             ", rin[j])
-        filenumber.write("rout            ", rout[j])
-        filenumber.write("p               ", p[j])
-        filenumber.write("nphotons        ", nphotons[j])
-        filenumber.write("numiterations   ", numiterations[j])
-        filenumber.write("convpercent     ", convpercent[j])
-        filenumber.write("diffuse         ", diffuse[j])
-        filenumber.write("temperature     ", temperature[j])
-        filenumber.write("luminosity      ", luminosity[j])
-        filenumber.write("silicatepercent ", silicatepercent[j])
-        filenumber.write("AMCpercent      ", AMCpercent[j])
+            filenumber.write("inputs to mocplot")
+            filenumber.write(rin[j], rout, p, lstar, tstellar, ' ' + starname, diffuse, ' ' + username,
+                             ' ' + outfoldername, starnum, torus, silicatepercent, AMCpercent,
+                             ' ' + name_gs[0], ' ' + name_gs[1], ' ' + name_gs[2], ' ' + name_gs[3],
+                             ' ' + filename_gs[0], ' ' + filename_gs[1], ' ' + filename_gs[2], ' ' + filename_gs[3],
+                             percent_gs[0], percent_gs[1], percent_gs[2], percent_gs[3])
+            filenumber.write("starname        ", starname)
+            filenumber.write("n               ", n)
+            filenumber.write("rin             ", rin)
+            filenumber.write("rout            ", rout)
+            filenumber.write("p               ", p)
+            filenumber.write("nphotons        ", nphotons)
+            filenumber.write("numiterations   ", numiterations)
+            filenumber.write("convpercent     ", convpercent)
+            filenumber.write("diffuse         ", diffuse)
+            filenumber.write("temperature     ", temperature)
+            filenumber.write("luminosity      ", luminosity)
+            filenumber.write("silicatepercent ", silicatepercent)
+            filenumber.write("AMCpercent      ", AMCpercent)
         filenumber.write("                ")
         filenumber.write("starnum         ", starnum)
         filenumber.write("tstellar        ", tstellar)
