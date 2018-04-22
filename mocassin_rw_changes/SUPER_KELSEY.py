@@ -523,9 +523,6 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
         if (includePAHS == 1):
             makeGrainSizeDistribution(20, 3.5, 3.548e-04, .25, 'PAH_sizes.dat', username)
 
-        filenumber = open('/Users/' + username + '/mocassin-rw_changes/output/' + outfoldername + '/KELSEY_output.txt', 'w')
-        filenumber.write("all KELSEY_input.txt variables...")
-
         start_time = time.time()
         runcounter = 0
         while (successtest != 1 and runcounter <= 1):
@@ -562,23 +559,28 @@ def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", er
                     mocassin_fail_kelsey(j, username, diffuse, os.getcwd(), outfoldername, starname)
             runcounter += 1
 
-            if (successtest == 1):
-                totaltime = time.time() - start_time
-            print('Total run time is ' + str(ssi(totaltime)) + ' seconds (' + str(ssi((totaltime) / 60.0)) + ')')
-            outfoldername = 'str'
-            if (errorcheck == "errorcheck"):
-                print('ENTERING KELSEY MOCPLOT')
-            if (isinstance(rin, list)):
-                mk.mocplot_KELSEY(rin[j], rout[j], p[j], lstar, tstellar, starname[j], diffuse[j], distance[j], symmetric[j], username, outfoldername, starnum, torus[j], silicatepercent[j], AMCpercent[j], name_gs, filename_gs, percent_gs, totaltime, infile, nduststr[j], distributionFile)
-            else:
-                mk.mocplot_KELSEY(rin, rout, p, lstar, tstellar, starname, diffuse, distance, symmetric, username, outfoldername, starnum, torus, silicatepercent, AMCpercent, name_gs, filename_gs, percent_gs, totaltime, infile, nduststr, distributionFile)
-            if (errorcheck == "errorcheck"):
-                print('leaving mocplot')
+        if (successtest == 1):
+            totaltime = time.time() - start_time
+        print('Total run time is ' + str(ssi(totaltime)) + ' seconds (' + str(ssi((totaltime) / 60.0)) + ')')
+        outfoldername = 'str'
+
+        if (errorcheck == "errorcheck"):
+            print('ENTERING KELSEY MOCPLOT')
+        if (isinstance(rin, list)):
+            mk.mocplot_KELSEY(rin[j], rout[j], p[j], lstar, tstellar, starname[j], diffuse[j], distance[j], symmetric[j], username, outfoldername, starnum, torus[j], silicatepercent[j], AMCpercent[j], name_gs, filename_gs, percent_gs, totaltime, infile, nduststr[j], distributionFile)
+        else:
+            mk.mocplot_KELSEY(rin, rout, p, lstar, tstellar, starname, diffuse, distance, symmetric, username, outfoldername, starnum, torus, silicatepercent, AMCpercent, name_gs, filename_gs, percent_gs, totaltime, infile, nduststr, distributionFile)
+        if (errorcheck == "errorcheck"):
+            print('leaving mocplot')
 
         cd_kelsey('/Users/' + username + '/mocassin-rw_changes')
 
+
+        filenumber = open('/Users/' + username + '/mocassin-rw_changes/output/' + outfoldername + '/KELSEY_output.txt', 'w')
+        filenumber.write("all KELSEY_input.txt variables...")
+
     #make an KELSEY output with what KELSEY did.
-        if (isinstance(n, list)):
+        if (isinstance(starname, list)):
             filenumber.write(starname[j], n[j], rin[j], rout[j], p[j], nphotons[j],numiterations[j], convpercent[j], diffuse[j], temperature[j], luminosity[j], silicatepercent[j], AMCpercent[j], torus[j])
 
             filenumber.write("inputs to mocplot")
