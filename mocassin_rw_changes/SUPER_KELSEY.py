@@ -82,10 +82,11 @@ def make_grainspecies_kelsey(name, file, percent, silicatepercent, AMCpercent):
 
     numspecies = 0
     index = []
-    for i in percent:
-        if (percent[i] > 0):
-            numspecies += 1
-            index.append(i)
+    for i in range(len(percent)):
+        for j in range(len(percent[i])):
+            if (percent[i][j] > 0):
+                numspecies += 1
+                index.append(i)
 
     if (numspecies == 0):
         if (AMCpercent == 0):
