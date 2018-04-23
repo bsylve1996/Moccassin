@@ -228,7 +228,6 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         darr = np.array(dustsizes.radius)
         plt.axis([darr.min(), darr.max(), ymin - 15, ymax + 15])
         plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), fancybox=True, shadow=True, ncol=5)
-        plt.show()
 
         #xyouts, xstart, ystart + N * yint, 'Square:   ' + ssf(r[elements - 2, 0, 0]), / normal & N + +
         #xyouts, xstart, ystart + N * yint, 'Diamond:  ' + ssf(r[where(r[*, 0, 0] eq median(r[*, 0, 0]))]   ), / normal & N + +
