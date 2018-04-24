@@ -18,61 +18,120 @@ def make_input_kelsey(j, distributionFile, torus, diffuse, n, luminosity, tstell
 #super input
 
 #torus must subtract one from the grid size
-    if (symmetric[j] == 0):
-        nvalue=n[j]-1
-    else:
-        nvalue=n[j]
-    if ((symmetric[j] == 1) and (diffuse[j] == 0)):
-        filenumber.write('symmetricXYZ')
+    if (isinstance(symmetric, list) and isinstance(diffuse, list)):
+        if (symmetric[j] == 0):
+            nvalue=n[j]-1
+        else:
+            nvalue=n[j]
+        if ((symmetric[j] == 1) and (diffuse[j] == 0)):
+            filenumber.write('symmetricXYZ')
 
 #FOR ALL
-    if (diffuse[j]):
+        if (diffuse[j]):
 #input for SN
-        filenumber.write('autoPackets 0.20 2. 900000000')
-        filenumber.write('writeGrid 10.')
-        filenumber.write('convLimit 0.01')
-        filenumber.write('nPhotons 0')
-        filenumber.write('LStar 0')
-        filenumber.write('TStellar 0')
-        filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'")
-        filenumber.write('diffuseSource ' + sss(luminosity[j]) + ' ' + sss(tstellar) + " 'blackbody' " + sss(nphotons[j]) + " 1")
+            filenumber.write('autoPackets 0.20 2. 900000000')
+            filenumber.write('writeGrid 10.')
+            filenumber.write('convLimit 0.01')
+            filenumber.write('nPhotons 0')
+            filenumber.write('LStar 0')
+            filenumber.write('TStellar 0')
+            filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'")
+            filenumber.write('diffuseSource ' + sss(luminosity[j]) + ' ' + sss(tstellar) + " 'blackbody' " + sss(nphotons[j]) + " 1")
     #1 is for smooth
-        filenumber.write('getEquivalentTau')
-    else:
+            filenumber.write('getEquivalentTau')
+        else:
     #input for the RSGs
-        filenumber.write('autoPackets 0.10 3. 1000000000')
+            filenumber.write('autoPackets 0.10 3. 1000000000')
     #.20 5. 100000000
     #when convergence increase is less than first number percent increase, increase the
     #number of photons by 2nd number, to a maximum of the third.
-        filenumber.write('writeGrid 80.')
-        filenumber.write('convLimit 0.05')
-        filenumber.write('nPhotons ' + sss(nphotons[j]))
-        filenumber.write('LStar ' + sss(lstar))
-        filenumber.write('TStellar ' + sss(tstellar))
+            filenumber.write('writeGrid 80.')
+            filenumber.write('convLimit 0.05')
+            filenumber.write('nPhotons ' + sss(nphotons[j]))
+            filenumber.write('LStar ' + sss(lstar))
+            filenumber.write('TStellar ' + sss(tstellar))
     #IF THE PAHS are turned on...
-        if (includePAHS == "includePAHS"):
-            filenumber.write("dustFile 'input/grainspecies.dat' 'input/PAH_sizes.dat'")
+            if (includePAHS == "includePAHS"):
+                filenumber.write("dustFile 'input/grainspecies.dat' 'input/PAH_sizes.dat'")
             #input / PAH_sizes.dat
             # input / mrn.dat
-            filenumber.write('quantumHeatGrain .005 90')
+                filenumber.write('quantumHeatGrain .005 90')
             #size, convergence
             # .04 is 400 angstroms...
-            print('Qheating turned ON!!!')
-        else:
-            filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'")
+                print('Qheating turned ON!!!')
+            else:
+                filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'")
 
     #all
-    filenumber.write('output')
+        filenumber.write('output')
 
-    filenumber.write('contShape  blackbody')
-    filenumber.write('nebComposition noGas')
-    filenumber.write('maxIterateMC ' + ssi(numiterations[j]) + ' ' + ssf(convpercent[j]))
-    filenumber.write("Ndust file '" + sss(nduststr) + "'")
-    filenumber.write('Rin ' + sss(rin[j]))
-    filenumber.write('Rout ' + sss(rout[j]))
-    filenumber.write('nx ' + sss(nvalue)) #1 was already subtracted if it is diffuse
-    filenumber.write('ny ' + sss(nvalue))
-    filenumber.write('nz ' + sss(nvalue))
+        filenumber.write('contShape  blackbody')
+        filenumber.write('nebComposition noGas')
+        filenumber.write('maxIterateMC ' + ssi(numiterations[j]) + ' ' + ssf(convpercent[j]))
+        filenumber.write("Ndust file '" + sss(nduststr) + "'")
+        filenumber.write('Rin ' + sss(rin[j]))
+        filenumber.write('Rout ' + sss(rout[j]))
+        filenumber.write('nx ' + sss(nvalue)) #1 was already subtracted if it is diffuse
+        filenumber.write('ny ' + sss(nvalue))
+        filenumber.write('nz ' + sss(nvalue))
+    else:
+
+        if (symmetric == 0):
+            nvalue = n - 1
+        else:
+            nvalue = n
+        if ((symmetric == 1) and (diffuse == 0)):
+            filenumber.write('symmetricXYZ')
+
+            # FOR ALL
+        if (diffuse):
+            # input for SN
+            filenumber.write('autoPackets 0.20 2. 900000000')
+            filenumber.write('writeGrid 10.')
+            filenumber.write('convLimit 0.01')
+            filenumber.write('nPhotons 0')
+            filenumber.write('LStar 0')
+            filenumber.write('TStellar 0')
+            filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'")
+            filenumber.write(
+                'diffuseSource ' + sss(luminosity) + ' ' + sss(tstellar) + " 'blackbody' " + sss(nphotons) + " 1")
+            # 1 is for smooth
+            filenumber.write('getEquivalentTau')
+        else:
+            # input for the RSGs
+            filenumber.write('autoPackets 0.10 3. 1000000000')
+            # .20 5. 100000000
+            # when convergence increase is less than first number percent increase, increase the
+            # number of photons by 2nd number, to a maximum of the third.
+            filenumber.write('writeGrid 80.')
+            filenumber.write('convLimit 0.05')
+            filenumber.write('nPhotons ' + sss(nphotons))
+            filenumber.write('LStar ' + sss(lstar))
+            filenumber.write('TStellar ' + sss(tstellar))
+            # IF THE PAHS are turned on...
+            if (includePAHS == "includePAHS"):
+                filenumber.write("dustFile 'input/grainspecies.dat' 'input/PAH_sizes.dat'")
+                # input / PAH_sizes.dat
+                # input / mrn.dat
+                filenumber.write('quantumHeatGrain .005 90')
+                # size, convergence
+                # .04 is 400 angstroms...
+                print('Qheating turned ON!!!')
+            else:
+                filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'")
+
+                # all
+        filenumber.write('output')
+
+        filenumber.write('contShape  blackbody')
+        filenumber.write('nebComposition noGas')
+        filenumber.write('maxIterateMC ' + ssi(numiterations) + ' ' + ssf(convpercent))
+        filenumber.write("Ndust file '" + sss(nduststr) + "'")
+        filenumber.write('Rin ' + sss(rin))
+        filenumber.write('Rout ' + sss(rout))
+        filenumber.write('nx ' + sss(nvalue))  # 1 was already subtracted if it is diffuse
+        filenumber.write('ny ' + sss(nvalue))
+        filenumber.write('nz ' + sss(nvalue))
 
     filenumber.close()
 
