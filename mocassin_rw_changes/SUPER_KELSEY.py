@@ -292,11 +292,10 @@ def makenuryd(diffuse, old, errorcheck = "errorcheck"):
     if (os.path.isfile('dustData/wavelength_resolution.txt')):
         lambdaAstro = np.loadtxt('dustData/wavelength_resolution.txt', unpack=True)
         ct = 0
-        index = []
-        for i in lambdaAstro:
+
+        for i in range(len(lambdaAstro)):
             if (lambdaAstro[i] == .5623):
                 ct += 1
-                index.append(i)
 
         if (ct == 0):
             print('FAIL!  You need a lambda of .5623 to get tau out silly pants!')
@@ -308,7 +307,7 @@ def makenuryd(diffuse, old, errorcheck = "errorcheck"):
             print('restoring OLD')
         else:
             nu = []
-            for i in lambdaAstro:
+            for i in range(len(lambdaAstro)):
                 nu.append(c / lambdaAstro[i] * 1.e-4 * ryd)
             if (nu.isEmpty()):
                 nu.append('empty')
