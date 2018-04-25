@@ -291,10 +291,6 @@ def makenuryd(diffuse, old, errorcheck = "errorcheck"):
     ryd = 3.28984e15
     if (os.path.isfile('dustData/wavelength_resolution.txt')):
         lambdaAstro = np.loadtxt('dustData/wavelength_resolution.txt', unpack=True)
-        nu = []
-        for i in lambdaAstro:
-            nu.append(c/lambdaAstro[i] * 1.e-4 * ryd)
-
         ct = 0
         index = []
         for i in lambdaAstro:
@@ -305,16 +301,17 @@ def makenuryd(diffuse, old, errorcheck = "errorcheck"):
         if (ct == 0):
             print('FAIL!  You need a lambda of .5623 to get tau out silly pants!')
 
-        if diffuse:
-            np.savetxt('dustData/nuRyd.dat', nu)
-        else:
-            np.savetxt('dustData/nuDustRyd.dat', nu)
-
     if (old == 1): #restores the old NU file...
         if (os.path.isfile('dustData/nuDustRyd_default.txt')):
             nu = np.loadtxt('dustData/nuDustRyd_default.txt', unpack=True)
             #nu = c / (lambda * 1.e-4 * ryd)  ## ALREADY IN rydbergs.
             print('restoring OLD')
+        else:
+            nu = []
+            for i in lambdaAstro:
+                nu.append(c / lambdaAstro[i] * 1.e-4 * ryd)
+            if (nu.isEmpty()):
+                nu.append('empty')
         if diffuse:
             np.savetxt('dustData/nuRyd.dat', nu)
         else:
@@ -338,11 +335,10 @@ def ssi(number):
 def sss(number):
     return(str(number).replace(" ", ""))
 
-def SUPER_KELSEY(infile, distributionFile, dontcheckinput = "dontcheckinput", errorcheck = "errorcheck"):
+def SUPER_KELSEY(infile, distributionFile, errorcheck = "errorcheck"):
 
     includePAHS = 0 #1 includes pahs... 0 is for normal run...
     errorcheck = 0 #1 prints status statements... 0 does not!
-    dontcheckinput = 1 #1 prevents error checking... 0 checks for errors
     old = 1 #1 = old nuDustRyd.dat, 0 uses wavelength from dustdata / wavelength_resolution.txt
 
     ans = 'str'
