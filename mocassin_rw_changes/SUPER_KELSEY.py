@@ -314,11 +314,11 @@ def makenuryd(diffuse, old, errorcheck = "errorcheck"):
             if(isinstance(lambdaAstro,list)):
                 for i in range(len(lambdaAstro)):
                     nu.append(c / lambdaAstro[i] * 1.e-4 * ryd)
-                if (nu.isEmpty()):
+                if (not nu):
                     nu.append('empty')
             else:
                 nu.append(c / lambdaAstro * 1.e-4 * ryd)
-                if (nu.isEmpty()):
+                if (not nu):
                     nu.append('empty')
         if diffuse:
             np.savetxt('dustData/nuRyd.dat', nu)
