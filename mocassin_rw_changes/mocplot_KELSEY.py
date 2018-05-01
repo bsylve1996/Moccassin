@@ -394,14 +394,13 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
 #    if (residual == "residual"):
 #        if irsdatacheck:
 #            extra_moc_plot(fnu1, nu1, data[2] / D ^ 2, data[1], irs_e_flux, ch1)
-#            if n > 0: extra_moc_plot(fnu1, nu1, data[3] / D ^ 2, data[1], irs_e_flux, ch2)
-#            if n > 1: extra_moc_plot(fnu1, nu1, data[4] / D ^ 2, data[1], irs_e_flux, ch3)
-
-#    if keyword_set(residual) then begin
-#        if irsdatacheck then begin
-#            star_dust_mass, mass, ch1, starname, id, username
-#            if n gt 0 then star_dust_mass, mass, ch2, starname, id, username
-#            if n gt 1 then star_dust_mass, mass, ch3, starname, id, username
+#            star_dust_mass(mass, ch1, starname, id, username)
+#            if n > 0:
+#                extra_moc_plot(fnu1, nu1, data[3] / D ^ 2, data[1], irs_e_flux, ch2)
+#                star_dust_mass(mass, ch2, starname, id, username)
+#                if n > 1:
+#                    extra_moc_plot(fnu1, nu1, data[4] / D ^ 2, data[1], irs_e_flux, ch3)
+#                    star_dust_mass(mass, ch3, starname, id, username)
 
     plt.show()
     pdtk.plot_dust_temp_kelsey(username, distributionFile, symmetric)
