@@ -289,18 +289,20 @@ def check_lstar_kelsey(luminosity, luminositycalc, starnum, diffuse, errorcheck 
 def makenuryd(diffuse, old, errorcheck = "errorcheck"):
     c = 2.9979250e10
     ryd = 3.28984e15
+    ct = 0
     if (os.path.isfile('dustData/wavelength_resolution.txt')):
-        lambdaAstro = np.loadtxt('dustData/wavelength_resolution.txt', unpack=True)
-        ct = 0
+        lambdaAstro = np.loadtxt('dustData/wavelength_resolution.txt', unpack=True, usecols=(0))
         if (isinstance(lambdaAstro,list)):
             for i in range(len(lambdaAstro)):
                 if (lambdaAstro[i] == .5623):
                     ct += 1
         elif (lambdaAstro == .5623):
             ct += 1
-
-        if (ct == 0):
-            print('FAIL!  You need a lambda of .5623 to get tau out silly pants!')
+    else:
+        lambdaAstro = .5623
+        ct += 1
+    if (ct == 0):
+        print('FAIL!  You need a lambda of .5623 to get tau out silly pants!')
 
     if (old == 1): #restores the old NU file...
         if (os.path.isfile('dustData/nuDustRyd_default.txt')):
@@ -315,7 +317,7 @@ def makenuryd(diffuse, old, errorcheck = "errorcheck"):
                 if (nu.isEmpty()):
                     nu.append('empty')
             else:
-                nu.append(c / lambdaAstro[i] * 1.e-4 * ryd)
+                nu.append(c / lambdaAstro * 1.e-4 * ryd)
                 if (nu.isEmpty()):
                     nu.append('empty')
         if diffuse:
