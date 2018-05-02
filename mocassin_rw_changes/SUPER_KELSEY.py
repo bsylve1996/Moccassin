@@ -5,7 +5,6 @@
 import numpy as np
 import os
 import sys
-from os import walk as w
 import time
 import savReaderWriter as srw
 import mocplot_KELSEY as mk
@@ -709,8 +708,16 @@ def endOfProgram(fatalerror = 0):
         print("(because of a fatal error!!!)")
 
 def list_files(directory, extension):
-    for (dirpath, dirnames, filenames) in w.walk(directory):
-        return (f for f in filenames if f.endswith('.' + extension))
+    list = []
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.asp'):
+                list.append(file)
+    return list
+
+#from os import walk as w
+#    for (dirpath, dirnames, filenames) in w.walk(directory):
+#        return (f for f in filenames if f.endswith('.' + extension))
 
 def main(argv):
     SUPER_KELSEY(argv[0],argv[1])
