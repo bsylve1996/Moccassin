@@ -72,8 +72,8 @@
       <file leaf-file-name="SUPER_KELSEY.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SUPER_KELSEY.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="470">
-              <caret line="717" column="1" lean-forward="false" selection-start-line="717" selection-start-column="1" selection-end-line="717" selection-end-column="1" />
+            <state relative-caret-position="28">
+              <caret line="223" column="4" lean-forward="false" selection-start-line="223" selection-start-column="4" selection-end-line="223" selection-end-column="4" />
               <folding>
                 <element signature="e#91#109#0" expanded="true" />
               </folding>
@@ -121,7 +121,6 @@
       <find>phi1</find>
       <find>mocplot_AMIY2</find>
       <find>InCLUDEPAHS</find>
-      <find>outfoldername</find>
       <find>make_grainspecies_kelsey</find>
       <find>percent_gs</find>
       <find>dustData/nuRyd.dat</find>
@@ -133,6 +132,7 @@
       <find>ch1</find>
       <find>isE</find>
       <find>list_files</find>
+      <find>outfoldername</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -551,8 +551,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SUPER_KELSEY.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="717" column="1" lean-forward="false" selection-start-line="717" selection-start-column="1" selection-end-line="717" selection-end-column="1" />
+        <state relative-caret-position="28">
+          <caret line="223" column="4" lean-forward="false" selection-start-line="223" selection-start-column="4" selection-end-line="223" selection-end-column="4" />
           <folding>
             <element signature="e#91#109#0" expanded="true" />
           </folding>

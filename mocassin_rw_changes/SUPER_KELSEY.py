@@ -202,7 +202,7 @@ def makeGrainSizeDistribution(*args):
 
     print('Done making new grain size distribution!!!!!')
 
-def mocassin_fail_kelsey(j, username, diffuse, directoryname, outfoldername, starname):
+def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
 
     print("RUN FAILED! Writing output.")
     print("Failed on line number" + (j + 1) + "of KELSEY_input.txt")
@@ -212,9 +212,12 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, outfoldername, sta
     id = ssi(KELSEY_number)
     KELSEY_number += 1
     srw.SavWriter('/Users/'+username+'/mocassin-rw_changes/KELSEY_number.sav',KELSEY_number)
-
-    if(diffuse[j]): type='SN'
-    else: type='RSG'
+    if (isinstance(diffuse, list)):
+        if(diffuse[j]): type='SN'
+        else: type='RSG'
+    else:
+        if (diffuse): type = 'SN'
+        else: type = 'RSG'
 
     directoryname = "/Users/" + username + "/mocassin-rw_changes/output/" + type + "/" + id + '_' + starname + '_FAIlED'
     os.system("mkdir " + directoryname)
@@ -617,9 +620,9 @@ def SUPER_KELSEY(infile, distributionFile, errorcheck = "errorcheck"):
             os.system("rm test1.txt")
             if (successtest == 0):
                 if (isinstance(starname, list)):
-                    mocassin_fail_kelsey(j, username, diffuse, os.getcwd(), outfoldername, starname[j])
+                    mocassin_fail_kelsey(j, username, diffuse, os.getcwd(), starname[j])
                 else:
-                    mocassin_fail_kelsey(j, username, diffuse, os.getcwd(), outfoldername, starname)
+                    mocassin_fail_kelsey(j, username, diffuse, os.getcwd(), starname)
             runcounter += 1
 
         if (successtest == 1):
