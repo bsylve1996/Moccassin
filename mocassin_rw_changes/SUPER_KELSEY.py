@@ -205,7 +205,7 @@ def makeGrainSizeDistribution(*args):
 def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
 
     print("RUN FAILED! Writing output.")
-    print("Failed on line number" + (j + 1) + "of KELSEY_input.txt")
+    print("Failed on line number" + str(j + 1) + "of KELSEY_input.txt")
 
     with srw.SavReader('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.sav') as reader:
         KELSEY_number = reader.next()
@@ -228,10 +228,16 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
     os.system('cp dustGrid.out ' + directoryname + '/dustGrid_' + id + '.out.txt')
     os.system('cp runinfo.txt ' + directoryname + '/runinfo_' + id + '.txt')
     os.system('cp SED.out ' + directoryname + '/SED_' + id + '.out.txt')
-    if (diffuse[j]):
-        os.system('cp equivalentTau.out ' + directoryname + '/equivalentTau_' + id + '.out.txt')
+    if isinstance(diffuse, list):
+        if (diffuse[j]):
+            os.system('cp equivalentTau.out ' + directoryname + '/equivalentTau_' + id + '.out.txt')
+        else:
+            os.system('cp tauNu.out ' + directoryname + '/tauNu_' + id + '.out.txt')
     else:
-        os.system('cp tauNu.out ' + directoryname + '/tauNu_' + id + '.out.txt')
+        if (diffuse):
+            os.system('cp equivalentTau.out ' + directoryname + '/equivalentTau_' + id + '.out.txt')
+        else:
+            os.system('cp tauNu.out ' + directoryname + '/tauNu_' + id + '.out.txt')
     os.system('cp /Users/' + username + '/mocassin-rw_changes/input/input.in ' + directoryname + '/input_' + id + '.in.txt')
     os.system('cp /Users/' + username + '/mocassin-rw_changes/input/ndust/nDUST ' + directoryname + '/nDUST_' + id + '.in.txt')
 
