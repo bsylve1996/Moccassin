@@ -206,8 +206,8 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
 
     print("RUN FAILED! Writing output.")
     print("Failed on line number" + str(j + 1) + "of KELSEY_input.txt")
-
-    reader = srw.SavReader('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.sav')
+    import savReader2 as srw2
+    reader = srw2.SavReader2('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.sav')
     KELSEY_number = reader.all()
     id = ssi(KELSEY_number)
     KELSEY_number += 1
