@@ -72,7 +72,7 @@ class SavReader2(Header2):
                  verbose=False, selectVars=None, idVar=None, rawMode=False,
                  ioUtf8=False, ioLocale=None):
         """ Constructor. Initializes all vars that can be recycled """
-        super(SavReader, self).__init__(savFileName, b"rb", None,
+        super(SavReader2, self).__init__(savFileName, b"rb", None,
                                         ioUtf8, ioLocale)
         self.savFileName = savFileName
         self.returnHeader = returnHeader
