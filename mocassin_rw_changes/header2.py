@@ -85,13 +85,13 @@ class Header2(Generic):
         """Clean up: free memory claimed by e.g. getValueLabels and
         getVarNamesTypes"""
         gc.collect()
-        if segfaults:
+        #if segfaults:
             return
         # print("... freeing", funcName[8:])
         func = getattr(self.spssio, funcName)
-        retcode = func(*args)
-        if retcode:
-            checkErrsWarns("Problem freeing memory using %s" % funcName, retcode)
+        #retcode = func(*args)
+        #if retcode:
+        #    checkErrsWarns("Problem freeing memory using %s" % funcName, retcode)
 
     @property
     def numberofCases(self):
@@ -129,8 +129,8 @@ class Header2(Generic):
         func = self.spssio.spssGetNumberofVariables
         func.argtypes = [c_int, POINTER(c_int)]
         retcode = func(self.fh, numVars)
-        if retcode:
-            checkErrsWarns("Problem getting number of variables", retcode)
+        #if retcode:
+        #   checkErrsWarns("Problem getting number of variables", retcode)
         return numVars.value
 
     @property
@@ -156,8 +156,8 @@ class Header2(Generic):
                          POINTER(POINTER(c_char_p * numVars)),
                          POINTER(POINTER(c_int * numVars))]
         retcode = func(self.fh, numVars_, varNamesArr, varTypesArr)
-        if retcode:
-            checkErrsWarns("Problem getting variable names & types", retcode)
+    #   if retcode:
+        #    checkErrsWarns("Problem getting variable names & types", retcode)
 
         # get array contents
         varNames = [varNamesArr[0][i] for i in xrange(numVars)]
