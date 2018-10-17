@@ -81,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="savReader2.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="savReader2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/savReader2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="74" column="13" lean-forward="false" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="13" />
+            <state relative-caret-position="375">
+              <caret line="183" column="57" lean-forward="true" selection-start-line="183" selection-start-column="57" selection-end-line="183" selection-end-column="57" />
               <folding>
                 <element signature="e#47#67#0" expanded="true" />
               </folding>
@@ -93,11 +93,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header2.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="header2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/header2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1997">
-              <caret line="91" column="9" lean-forward="false" selection-start-line="91" selection-start-column="9" selection-end-line="91" selection-end-column="9" />
+            <state relative-caret-position="178">
+              <caret line="94" column="0" lean-forward="true" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
               <folding>
                 <element signature="e#47#67#0" expanded="true" />
               </folding>
@@ -160,6 +160,7 @@
       <find>list_files</find>
       <find>outfoldername</find>
       <find>super</find>
+      <find>supportedDates</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -172,9 +173,9 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
         <option value="$PROJECT_DIR$/SUPER_KELSEY.py" />
-        <option value="$PROJECT_DIR$/savReader2.py" />
         <option value="$PROJECT_DIR$/generic2.py" />
         <option value="$PROJECT_DIR$/header2.py" />
+        <option value="$PROJECT_DIR$/savReader2.py" />
       </list>
     </option>
   </component>
@@ -753,16 +754,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/savReader2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="74" column="13" lean-forward="false" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="13" />
-          <folding>
-            <element signature="e#47#67#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generic2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="631">
@@ -775,8 +766,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/header2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1997">
-          <caret line="91" column="9" lean-forward="false" selection-start-line="91" selection-start-column="9" selection-end-line="91" selection-end-column="9" />
+        <state relative-caret-position="178">
+          <caret line="94" column="0" lean-forward="true" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding>
+            <element signature="e#47#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/savReader2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="183" column="57" lean-forward="true" selection-start-line="183" selection-start-column="57" selection-end-line="183" selection-end-column="57" />
           <folding>
             <element signature="e#47#67#0" expanded="true" />
           </folding>

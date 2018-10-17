@@ -178,7 +178,8 @@ class SavReader2(Header2):
     def _isAutoRawMode(self):
         """Helper function for formatValues function. Determines whether
         iterating over each individual value is really needed"""
-        hasDates = bool(set(self.bareformats.values()) & set(supportedDates))
+        #hasDates = bool(set(self.bareformats.values()) & set(supportedDates))
+        hasDates = bool(set(self.bareformats.values()))
         hasNfmt = b"N" in list(self.bareformats.values())
         hasRecodeSysmis = self.recodeSysmisTo is not None
         items = [hasDates, hasNfmt, hasRecodeSysmis, self.ioUtf8_]
