@@ -86,7 +86,7 @@ class Header2(Generic):
         getVarNamesTypes"""
         gc.collect()
         #if segfaults:
-            return
+        #    return
         # print("... freeing", funcName[8:])
         func = getattr(self.spssio, funcName)
         #retcode = func(*args)
