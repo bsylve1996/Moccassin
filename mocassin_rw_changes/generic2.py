@@ -67,7 +67,7 @@ class Generic(object):
         # Using regex patterns ought to be more resilient to updates of the
         # I/O modules, compared to hardcoding the names
         debug = False
-        path == None
+        path = None
         """
         if getattr(sys, 'frozen', False):
             # The application is frozen by cx_freeze
@@ -232,7 +232,7 @@ class Generic(object):
         spssClose.argtypes = [c_int]
         retcode = spssClose(fh) if spssClose else 9999
         msg = "Problem closing file in mode %r" % mode
-        checkErrsWarns(msg, retcode)
+        #checkErrsWarns(msg, retcode)
 
     @property
     def releaseInfo(self):

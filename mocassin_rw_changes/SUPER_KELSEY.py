@@ -206,12 +206,19 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
 
     print("RUN FAILED! Writing output.")
     print("Failed on line number" + str(j + 1) + "of KELSEY_input.txt")
-    import savReader2 as srw2
-    reader = srw2.SavReader2('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.sav')
-    KELSEY_number = reader.all()
-    id = ssi(KELSEY_number)
-    KELSEY_number += 1
-    srw.SavWriter('/Users/'+username+'/mocassin-rw_changes/KELSEY_number.sav',KELSEY_number)
+
+    import csv
+    r = csv.reader(open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.csv'))
+    lines = list(r)
+    lines[0] = ssi(lines[0]) + 1
+    writer = csv.writer(open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.csv', 'w'))
+    writer.writerows(lines)
+    #import savReader2 as srw2
+    #reader = srw2.SavReader2('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.sav')
+    #KELSEY_number = reader.all()
+    #id = ssi(KELSEY_number)
+    #KELSEY_number += 1
+    #srw.SavWriter('/Users/'+username+'/mocassin-rw_changes/KELSEY_number.sav',KELSEY_number)
     if (isinstance(diffuse, list)):
         if(diffuse[j]): type='SN'
         else: type='RSG'

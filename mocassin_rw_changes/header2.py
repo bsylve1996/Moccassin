@@ -113,8 +113,8 @@ class Header2(Generic):
             func = self.spssio.spssGetEstimatedNofCases
             func.argtypes = [c_int, POINTER(c_long)]
             retcode = func(self.fh, nCases)
-        if retcode:
-            checkErrsWarns("Problem getting number of cases", retcode)
+        #if retcode:
+        #    checkErrsWarns("Problem getting number of cases", retcode)
         return nCases.value
 
     @property
