@@ -207,12 +207,16 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
     print("RUN FAILED! Writing output.")
     print("Failed on line number" + str(j + 1) + "of KELSEY_input.txt")
 
-    import csv
-    r = csv.reader(open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.csv'))
-    lines = list(r)
-    lines[0] = ssi(lines[0]) + 1
-    writer = csv.writer(open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.csv', 'w'))
-    writer.writerows(lines)
+
+    with open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt') as r:
+        for line in r:
+            numbers = map(int,line.split())
+    KELSEY_number = numbers + 1
+    id = KELSEY_number[0]
+    r.close()
+    writer = open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt', 'w')
+    writer.write(KELSEY_number)
+    writer.close()
     #import savReader2 as srw2
     #reader = srw2.SavReader2('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.sav')
     #KELSEY_number = reader.all()
@@ -226,9 +230,9 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
         if (diffuse): type = 'SN'
         else: type = 'RSG'
 
-    directoryname = "/Users/" + username + "/mocassin-rw_changes/output/" + type + "/" + id + '_' + starname + '_FAIlED'
+    directoryname = "/Users/" + username + "/mocassin-rw_changes/output/" + type + "/" + str(id) + '_' + starname + '_FAIlED'
     os.system("mkdir " + directoryname)
-    outfoldername = type + "/" + id + '_' + starname + '_FAIlED'
+    outfoldername = type + "/" + str(id) + '_' + starname + '_FAIlED'
 
     os.chdir('/Users/' + username + '/mocassin-rw_changes/output')
 
