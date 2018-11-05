@@ -207,15 +207,19 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
     print("RUN FAILED! Writing output.")
     print("Failed on line number" + str(j + 1) + "of KELSEY_input.txt")
 
-
+    numbers = []
     with open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt') as r:
         for line in r:
-            numbers = map(int,line.split())
-    KELSEY_number = numbers + 1
-    id = KELSEY_number[0]
+            number_str = line.split()
+            numbers = [int(x) for x in number_str]
+    if not numbers:
+        KELSEY_number = 1
+    else:
+        KELSEY_number = numbers[0] + 1
+    id = KELSEY_number
     r.close()
     writer = open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt', 'w')
-    writer.write(KELSEY_number)
+    writer.write(str(KELSEY_number))
     writer.close()
     #import savReader2 as srw2
     #reader = srw2.SavReader2('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.sav')
