@@ -207,15 +207,44 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     if (errorcheck == "errorcheck"): print('starting mocplot kelsey')
 
     sk.cd_kelsey('/Users/' + username + '/mocassin-rw_changes/output')
-    srw.SavWriter('mocplot_variables.sav',rin, rout, rho, lum, tstellar, starname, diffuse, distance, symmetric,username, outfoldername, starnum, donut, sil, carb, name_gs, filename_gs, percent_gs, totaltime,infile, nduststr, distributionFile)
-
-
-
-    with srw.SavReader('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.sav') as reader:
-        KELSEY_number = reader.next()
-    id = sk.ssi(KELSEY_number)
-    KELSEY_number += 1
-    srw.SavWriter('/Users/'+username+'/mocassin-rw_changes/KELSEY_number.sav',KELSEY_number)
+    #srw.SavWriter('mocplot_variables.sav',rin, rout, rho, lum, tstellar, starname, diffuse, distance, symmetric,username, outfoldername, starnum, donut, sil, carb, name_gs, filename_gs, percent_gs, totaltime,infile, nduststr, distributionFile)
+    f = open('mocplot_variables.txt', 'wb')
+    f.write(rin)
+    f.write(rout)
+    f.write(rho)
+    f.write(lum)
+    f.write(tstellar)
+    f.write(starname)
+    f.write(diffuse)
+    f.write(distance)
+    f.write(symmetric)
+    f.write(username)
+    f.write(outfoldername)
+    f.write(starnum)
+    f.write(donut)
+    f.write(sil)
+    f.write(carb)
+    f.write(name_gs)
+    f.write(filename_gs)
+    f.write(percent_gs)
+    f.write(totaltime)
+    f.write(infile)
+    f.write(nduststr)
+    f.write(distributionFile)
+    numbers = []
+    with open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt') as r:
+        for line in r:
+            number_str = line.split()
+            numbers = [int(x) for x in number_str]
+    if not numbers:
+        KELSEY_number = 1
+    else:
+        KELSEY_number = int(numbers[0]) + 1
+    id = int(KELSEY_number)
+    r.close()
+    writer = open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt', 'w')
+    writer.write(str(KELSEY_number))
+    writer.close()
 
 #COPY FILES OVER
     if diffuse:
@@ -230,14 +259,14 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     outfoldername = directoryname
 
     os.system('mkdir ' + directoryname)
-    os.system('cp dustGrid.out ' + directoryname + '/dustGrid_' + id + '.out.txt')
-    os.system('mv runinfo.txt ' + directoryname + '/runinfo_' + id + '.txt')
-    os.system('cp SED.out ' + directoryname + '/SED_' + id + '.out.txt')
-    os.system('cp equivalentTau.out ' + directoryname + '/equivalentTau_' + id + '.out.txt')
-    os.system('cp tauNu.out ' + directoryname + '/tauNu_' + id + '.out.txt')
-    os.system('cp /Users/' + username + '/mocassin-rw_changes/input/input.in ' + directoryname + '/input_' + id + '.in.txt')
-    os.system('cp /Users/' + username + '/mocassin-rw_changes/input/grainspecies.dat ' + directoryname + '/grainspecies_' + id + '.dat.txt')
-    os.system('cp /Users/' + username + '/mocassin-rw_changes/' + nduststr + ' ' + directoryname + '/nDUST_' + id + '.in.txt')
+    os.system('cp dustGrid.out ' + directoryname + '/dustGrid_' + str(id) + '.out.txt')
+    os.system('mv runinfo.txt ' + directoryname + '/runinfo_' + str(id) + '.txt')
+    os.system('cp SED.out ' + directoryname + '/SED_' + str(id) + '.out.txt')
+    os.system('cp equivalentTau.out ' + directoryname + '/equivalentTau_' + str(id) + '.out.txt')
+    os.system('cp tauNu.out ' + directoryname + '/tauNu_' + str(id) + '.out.txt')
+    os.system('cp /Users/' + username + '/mocassin-rw_changes/input/input.in ' + directoryname + '/input_' + str(id) + '.in.txt')
+    os.system('cp /Users/' + username + '/mocassin-rw_changes/input/grainspecies.dat ' + directoryname + '/grainspecies_' + str(id) + '.dat.txt')
+    os.system('cp /Users/' + username + '/mocassin-rw_changes/' + str(nduststr) + ' ' + directoryname + '/nDUST_' + str(id) + '.in.txt')
 
 # ** ** ** ** ** MODIFY BELOW ** ** ** ** ** ** ** *
     mocassinfile = 'SED.out' #file name

@@ -215,8 +215,8 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
     if not numbers:
         KELSEY_number = 1
     else:
-        KELSEY_number = numbers[0] + 1
-    id = KELSEY_number
+        KELSEY_number = int(numbers[0]) + 1
+    id = int(KELSEY_number)
     r.close()
     writer = open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt', 'w')
     writer.write(str(KELSEY_number))
@@ -234,27 +234,27 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
         if (diffuse): type = 'SN'
         else: type = 'RSG'
 
-    directoryname = "/Users/" + username + "/mocassin-rw_changes/output/" + type + "/" + str(id) + '_' + starname + '_FAIlED'
+    directoryname = "/Users/" + username + "/mocassin-rw_changes/output/" + type + "/" + str(id) + '_' + str(starname) + '_FAIlED'
     os.system("mkdir " + directoryname)
     outfoldername = type + "/" + str(id) + '_' + starname + '_FAIlED'
 
     os.chdir('/Users/' + username + '/mocassin-rw_changes/output')
 
-    os.system('cp dustGrid.out ' + directoryname + '/dustGrid_' + id + '.out.txt')
-    os.system('cp runinfo.txt ' + directoryname + '/runinfo_' + id + '.txt')
-    os.system('cp SED.out ' + directoryname + '/SED_' + id + '.out.txt')
+    os.system('cp dustGrid.out ' + directoryname + '/dustGrid_' + str(id) + '.out.txt')
+    os.system('cp runinfo.txt ' + directoryname + '/runinfo_' + str(id) + '.txt')
+    os.system('cp SED.out ' + directoryname + '/SED_' + str(id) + '.out.txt')
     if isinstance(diffuse, list):
         if (diffuse[j]):
-            os.system('cp equivalentTau.out ' + directoryname + '/equivalentTau_' + id + '.out.txt')
+            os.system('cp equivalentTau.out ' + directoryname + '/equivalentTau_' + str(id) + '.out.txt')
         else:
-            os.system('cp tauNu.out ' + directoryname + '/tauNu_' + id + '.out.txt')
+            os.system('cp tauNu.out ' + directoryname + '/tauNu_' + str(id) + '.out.txt')
     else:
         if (diffuse):
-            os.system('cp equivalentTau.out ' + directoryname + '/equivalentTau_' + id + '.out.txt')
+            os.system('cp equivalentTau.out ' + directoryname + '/equivalentTau_' + str(id) + '.out.txt')
         else:
-            os.system('cp tauNu.out ' + directoryname + '/tauNu_' + id + '.out.txt')
-    os.system('cp /Users/' + username + '/mocassin-rw_changes/input/input.in ' + directoryname + '/input_' + id + '.in.txt')
-    os.system('cp /Users/' + username + '/mocassin-rw_changes/input/ndust/nDUST ' + directoryname + '/nDUST_' + id + '.in.txt')
+            os.system('cp tauNu.out ' + directoryname + '/tauNu_' + str(id) + '.out.txt')
+    os.system('cp /Users/' + username + '/mocassin-rw_changes/input/input.in ' + directoryname + '/input_' + str(id) + '.in.txt')
+    os.system('cp /Users/' + username + '/mocassin-rw_changes/input/ndust/nDUST ' + directoryname + '/nDUST_' + str(id) + '.in.txt')
 
 
 def check_temp_kelsey(temperature, temp, starnum, diffuse, errorcheck = "errorcheck"):
@@ -646,8 +646,7 @@ def SUPER_KELSEY(infile, distributionFile, errorcheck = "errorcheck"):
                     mocassin_fail_kelsey(j, username, diffuse, os.getcwd(), starname)
             runcounter += 1
 
-        if (successtest == 1):
-            totaltime = time.time() - start_time
+        totaltime = time.time() - start_time
         print('Total run time is ' + str(ssi(totaltime)) + ' seconds (' + str(ssi((totaltime) / 60.0)) + ')')
         outfoldername = 'str'
 

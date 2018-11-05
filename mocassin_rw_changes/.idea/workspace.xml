@@ -43,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mocplot_KELSEY.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mocplot_KELSEY.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mocplot_KELSEY.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="164" column="44" lean-forward="false" selection-start-line="164" selection-start-column="44" selection-end-line="164" selection-end-column="44" />
+            <state relative-caret-position="156">
+              <caret line="213" column="16" lean-forward="true" selection-start-line="213" selection-start-column="16" selection-end-line="213" selection-end-column="16" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -67,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SUPER_KELSEY.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SUPER_KELSEY.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SUPER_KELSEY.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="215" column="25" lean-forward="true" selection-start-line="215" selection-start-column="25" selection-end-line="215" selection-end-column="25" />
+            <state relative-caret-position="581">
+              <caret line="218" column="27" lean-forward="true" selection-start-line="218" selection-start-column="27" selection-end-line="218" selection-end-column="27" />
               <folding>
                 <element signature="e#91#109#0" expanded="true" />
               </folding>
@@ -131,7 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>AMCpercent</find>
       <find>check_temp_kelsey</find>
       <find>endOfProgram</find>
       <find>silicatepercent</find>
@@ -161,6 +160,7 @@
       <find>record</find>
       <find>iter</find>
       <find>KELSEY_number</find>
+      <find>mocassin_fail_kelsey</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -169,17 +169,17 @@
         <option value="$PROJECT_DIR$/SUPER_AMIY.py" />
         <option value="$PROJECT_DIR$/plot_dust_temp_kelsey.py" />
         <option value="$PROJECT_DIR$/plot_dust_temp_amiy.py" />
-        <option value="$PROJECT_DIR$/mocplot_KELSEY.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.py" />
         <option value="$PROJECT_DIR$/savReader2.py" />
         <option value="$PROJECT_DIR$/header2.py" />
         <option value="$PROJECT_DIR$/generic2.py" />
         <option value="$PROJECT_DIR$/SUPER_KELSEY.py" />
+        <option value="$PROJECT_DIR$/mocplot_KELSEY.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="360" />
     <option name="y" value="46" />
     <option name="width" value="1529" />
@@ -293,7 +293,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08802083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -747,16 +747,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mocplot_KELSEY.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="164" column="44" lean-forward="false" selection-start-line="164" selection-start-column="44" selection-end-line="164" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plot_dust_temp_kelsey.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -767,10 +757,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SUPER_KELSEY.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="215" column="25" lean-forward="true" selection-start-line="215" selection-start-column="25" selection-end-line="215" selection-end-column="25" />
+        <state relative-caret-position="581">
+          <caret line="218" column="27" lean-forward="true" selection-start-line="218" selection-start-column="27" selection-end-line="218" selection-end-column="27" />
           <folding>
             <element signature="e#91#109#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mocplot_KELSEY.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="213" column="16" lean-forward="true" selection-start-line="213" selection-start-column="16" selection-end-line="213" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
