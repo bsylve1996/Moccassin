@@ -236,7 +236,7 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
 
     directoryname = "/Users/" + username + "/mocassin-rw_changes/output/" + type + "/" + str(id) + '_' + str(starname) + '_FAIlED'
     os.system("mkdir " + directoryname)
-    outfoldername = type + "/" + str(id) + '_' + starname + '_FAIlED'
+    outfoldername = type + "/" + str(id) + '_' + str(starname) + '_FAIlED'
 
     os.chdir('/Users/' + username + '/mocassin-rw_changes/output')
 
