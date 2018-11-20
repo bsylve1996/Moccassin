@@ -214,12 +214,12 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     f.write(str(rho))
     f.write(str(lum))
     f.write(str(tstellar))
-    f.write(starname)
+    f.write(str(starname))
     f.write(str(diffuse))
     f.write(str(distance))
     f.write(str(symmetric))
-    f.write(username)
-    f.write(outfoldername)
+    f.write(str(username))
+    f.write(str(outfoldername))
     f.write(str(starnum))
     f.write(str(donut))
     f.write(str(sil))
@@ -245,16 +245,18 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     writer = open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt', 'w')
     writer.write(str(KELSEY_number))
     writer.close()
-
+    sil = np.floor(sil)
+    rho2 = np.floor(rho)
+    carb2 = np.floor(carb)
 #COPY FILES OVER
     if diffuse:
-        directoryname = 'SN/' + id + '_' + starname + '_Rin' + str(rin).strip() + '_Rout' + str(rout).strip() + '_Ls' + \
-                        str(lum).strip() + '_Rho' + str(rho).strip() + '_sil' + str((sil).floor()).strip() + '_carb' + \
-                        str((carb).floor()).strip()
+        directoryname = 'SN/' + str(id) + '_' + str(starname) + '_Rin' + str(rin).strip() + '_Rout' + str(rout).strip() + '_Ls' + \
+                        str(lum).strip() + '_Rho' + str(rho).strip() + '_sil' + str(sil).strip() + '_carb' + \
+                        str(carb2).strip()
     else:
-        directoryname = 'RSG/' + id + '_' + starname + '_Rin' + str(rin).strip() + '_Rout' + str(rout).strip() + '_Ls' + \
-                        str(lum).strip() + '_Rho' + str((rho).floor()).strip() + '_sil' + str((sil).floor()).strip() + \
-                        '_carb' + str((carb).floor()).strip()
+        directoryname = 'RSG/' + str(id) + '_' + str(starname) + '_Rin' + str(rin).strip() + '_Rout' + str(rout).strip() + '_Ls' + \
+                        str(lum).strip() + '_Rho' + str(rho2).strip() + '_sil' + str(sil).strip() + \
+                        '_carb' + str(carb2).strip()
 
     outfoldername = directoryname
 
@@ -279,14 +281,8 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
 
 #GET THE MASS
     testarray1 = []
-    os.system('grep "Total" dustGrid.out > test')
-    lun1 = open('test', 'r')
-    testarray1 = lun1.read()
-    test = testarray1(0).index(':')  # if does not exist code will throw a value error
-    mass = float((float(testarray1(0)[test + 4, 13]) * 1.e30 * 1.e15) / 1.98892e33)
-    lun1.close()
-
-    os.system('rm -f test')
+    os.system('grep "Total" dustGrid.out > test')#keep this make it total instead of test and remove stringy everywhere and stupid extras
+    #os.system('rm -f test')
 
     sil = sk.sss(sil)
     carb = sk.sss(carb)
@@ -313,7 +309,7 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     jhkcheck = 0
     temp = 'str'
 
-    str = "mu"
+    str0 = "mu"
     str1 = "lambda"
     str2 = "nu"
     nu1, fnu1, unu1, dataFlag = np.loadtxt(infile, unpack=True)
@@ -342,7 +338,7 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
 
     plt.plot([0, 0], [0, 0])
     plt.axis([0.3,xmax, ymin, ymax])
-    plt.xlabel(str1 + ' [' + str + 'm]')
+    plt.xlabel(str1 + ' [' + str0 + 'm]')
     plt.ylabel('F' + str2 + ' [mJy]')
 
     yndots = []
@@ -389,7 +385,7 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     if (irsdatacheck): plt.plot(nu1, fnu1) #irs
     if (jhkcheck): plt.plot(wdata, fdata) #jhk, iras mips data
 
-    stringy = id + '\nrin =       ' + rin + ' cm\nrout =      ' + rout + ' cm\nL =         ' + lum + ' e36 erg/s\nT =         ' + tstellar.floor() + ' K'
+    #stringy = id + '\nrin =       ' + rin + ' cm\nrout =      ' + rout + ' cm\nL =         ' + lum + ' e36 erg/s\nT =         ' + tstellar.floor() + ' K'
     index = []
     numspecies = 0
     for i in percent_gs:
@@ -397,12 +393,12 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
             index.append(percent_gs[i])
             numspecies += 1
 
-    if (numspecies == 0):
-        stringy += '\noss ' + sk.ssi(sil) + ' amC ' + sk.ssi(carb)
-    else:
-        for i in range (numspecies-1):
-            stringy += '\n' + name_gs[index[i]] + ' ' + sk.ssi(percent_gs[index[i]]) + ' '
-    stringy += "\nrho = " + (rho).floor() + '\nDMass=' + mass + ' Msol'
+   # if (numspecies == 0):
+    #    stringy += '\noss ' + sk.ssi(sil) + ' amC ' + sk.ssi(carb)
+    #else:
+     #   for i in range (numspecies-1):
+      #      stringy += '\n' + name_gs[index[i]] + ' ' + sk.ssi(percent_gs[index[i]]) + ' '
+    #stringy += "\nrho = " + (rho).floor() + '\nDMass=' + mass + ' Msol'
 
 
     for i in wave:
@@ -415,10 +411,10 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
 #should be an array of length 3.
 #x axis:: element 0, z axis:: element 1, y axis:: element 2
 #doesn't matter for wav, all the same lambda
-    stringy += "\ntau = " + tau_print[1] + ' at ' + wav[0] + ' um'
+   # stringy += "\ntau = " + tau_print[1] + ' at ' + wav[0] + ' um'
 
-    if (donut == 0): stringy += '\nShape = Shell'
-    else: stringy += '\nShape = Torus'
+   # if (donut == 0): stringy += '\nShape = Shell'
+ #   else: stringy += '\nShape = Torus'
 
 #    if (residual == "residual"):
 #        if irsdatacheck:

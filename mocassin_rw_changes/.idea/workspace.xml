@@ -46,8 +46,8 @@
       <file leaf-file-name="mocplot_KELSEY.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mocplot_KELSEY.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="216" column="21" lean-forward="true" selection-start-line="216" selection-start-column="21" selection-end-line="216" selection-end-column="21" />
+            <state relative-caret-position="328">
+              <caret line="316" column="13" lean-forward="true" selection-start-line="316" selection-start-column="13" selection-end-line="316" selection-end-column="13" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -131,13 +131,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>check_temp_kelsey</find>
-      <find>endOfProgram</find>
-      <find>silicatepercent</find>
-      <find>makeRSG_AMIY</find>
-      <find>make_grainspecies_AMIY</find>
-      <find>includePAHS</find>
-      <find>cd_amiy</find>
       <find>make_input_amiy</find>
       <find>make_input_amiy(</find>
       <find>phi1</find>
@@ -161,6 +154,13 @@
       <find>iter</find>
       <find>KELSEY_number</find>
       <find>mocassin_fail_kelsey</find>
+      <find>str</find>
+      <find>sil</find>
+      <find>rho</find>
+      <find>dustGrid</find>
+      <find>mass</find>
+      <find>test</find>
+      <find>stringy</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -179,7 +179,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="360" />
     <option name="y" value="46" />
     <option name="width" value="1529" />
@@ -293,7 +293,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
+    <frame x="-11" y="-11" width="1942" height="1042" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08802083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -767,8 +767,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/mocplot_KELSEY.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="216" column="21" lean-forward="true" selection-start-line="216" selection-start-column="21" selection-end-line="216" selection-end-column="21" />
+        <state relative-caret-position="328">
+          <caret line="316" column="13" lean-forward="true" selection-start-line="316" selection-start-column="13" selection-end-line="316" selection-end-column="13" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
