@@ -33,11 +33,16 @@ def planck(T, wave):
     """
 
     c = 29979245800. # cm/s
-    nu = c/(wave/1e4) # Hz
+    nu = []
+    for i in range(len(wave)):
+        nu.append(c/(wave[i]/1e4)) # Hz
 
     # Take advantage of the fact that (lam F_lam) = (nu F_nu):
-
-    return (bnu(T, wave) * (nu / wave))
+    returnThis = []
+    bnuArr = bnu(T, wave)
+    for i in range(len(bnuArr)):
+        returnThis.append(bnuArr[i] * (nu[i]/wave[i]))
+    return returnThis
 
 def bnu(T, wave):
     """Planck function in frequency.
@@ -54,12 +59,21 @@ def bnu(T, wave):
     from numpy import exp
 
     c = 29979245800. # cm/s
-    nu = c/(wave/1e4)
+    nu = []
+    for i in range(len(wave)):
+        nu.append(c/(wave[i]/1e4))
     h = 6.626068e-27 # cgs units
     k =  1.3806503e-16 # cgs units
-    expo = h*nu/(k*T)
-    nuoverc = 1./ (wave/1e4)
-    return ((2*h*nuoverc**2 * nu)) / (exp(expo)-1)
+    expo = []
+    for i in range(len(nu)):
+        expo.append(h*nu[i]/(k*T))
+    nuoverc = []
+    for i in range(len(wave)):
+        nuoverc.append(1./ (wave[i]/1e4))
+    returningThis = []
+    for i in range(len(nuoverc)):
+        returningThis.append((2*h*(float(nuoverc[i])**2) * float(nu[i])) / (float(exp(float(expo[i])))-1))
+    return returningThis
 
 def idl_tabulate(x, f, p=5) :
     def newton_cotes(x, f) :
@@ -75,10 +89,10 @@ def idl_tabulate(x, f, p=5) :
     return ret
 
 def testbb(lum,temp,rstar,errorcheck="errorcheck"): #rstar is distance to object in pc
-    if errorcheck.equals("errorcheck"):
+    if errorcheck == "errorcheck":
         print('testbbing')
     pc=3.086e18                  #1 parsec in cm
-    const = 1.e36/pc^2
+    const = 1.e36/ pc ** 2
 
 
     npointsArray = [x for x in range(50000)] #npoints = 50000
@@ -92,7 +106,7 @@ def testbb(lum,temp,rstar,errorcheck="errorcheck"): #rstar is distance to object
     integral = idl_tabulate(wave, bbflux)
     bbflux = bbflux * (lum/integral)
     wave = wave/1.0e4 #convert to microns
-    if errorcheck.equals("errorcheck"):
+    if errorcheck == "errorcheck":
         print(integral)
 
     #stop
@@ -290,20 +304,31 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     if (errorcheck == "errorcheck"): print('SPOT 1.5')
 
 #FIND TAU
-    wave, tau = np.loadtxt('/Users/mocassin/mocassin-rw_changes/output/tauNu.out', unpack=True)
+#    wave, tau = np.loadtxt('/Users/mocassin/mocassin-rw_changes/output/tauNu.out', unpack=True)
 
     if (errorcheck == "errorcheck"): print('SPOT 2')
 
-    col0, col1, col2 = np.loadtxt(mocassinfile, unpack=True)
+    #col0, col1, col2 = np.loadtxt(mocassinfile, unpack=True)
+    col0 = []
+    col1 = []
+    col2 = []
 
-    data = [[0.0 for x in range(len(col1))] for x in range(3 + n)]  # n is number of viewing angles
-    for i in range(len(col0)):
-        data[0, i] = col0[i]
-    for i in range(len(col1)):
-        data[1, i] = col1[i]
-    for i in range(len(col2)):
-        data[2, i] = col2[i]
-
+    with open(mocassinfile, "r") as f:
+        for i in range(4):
+            f.readline()#ignore beginning
+        data = f.readlines()
+        for line in data:
+            try:
+                arr = line.split()
+                if isinstance(float(arr[0]), float):
+                    col0.append(float(arr[0]))
+                    col1.append(float(arr[1]))
+                    col2.append(float(arr[2]))
+            except:
+                pass
+  
+    
+    data = [col0, col1, col2]
     visibledatacheck = 0
     irsdatacheck = 0
     jhkcheck = 0
@@ -312,14 +337,29 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     str0 = "mu"
     str1 = "lambda"
     str2 = "nu"
-    nu1, fnu1, unu1, dataFlag = np.loadtxt(infile, unpack=True)
+    
+    nu1 = []
+    fnu1 = []
+    unu1 = []
+    dataFlag = []
+
+    with open(infile, "r") as f:
+        allLines = f.readlines()
+        for line in allLines:
+            arr = line.split()
+            if len(arr) == 0:
+                break
+            nu1.append(float(arr[0]))
+            fnu1.append(float(arr[1]))
+            unu1.append(float(arr[2]))
+            dataFlag.append(int(arr[3]))
     upFlag = []
     datFl = 0
-    for i in dataFlag:
+    for i in range(len(dataFlag)):
         if(dataFlag[i] == 0):
             upFlag.append(dataFlag[i])
             datFl += 1
-    if (upFlag[0] != -1):
+    if (len(upFlag) != 0 and upFlag[0] != -1):
         upNu = nu1[upFlag]
         upFnu = fnu1[upFlag]
 #Check to make sure these are not 1D arrays
@@ -343,10 +383,10 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
 
     yndots = []
     for i in range(len(data[2])):
-        yndots.append(data[2][n] / (4.9e7 ^ 2) * 1000)
-    plt.plot(data[1], yndots, 'b')
+        yndots.append(float(data[2][n]) / (4.9e7 ** 2) * 1000)
+    plt.plot(np.array(data[1]), np.array(yndots), 'b')
 
-    print('min = ' + min(data[2]) + '        max = ' + max(data[2]))
+    print('min = ' + str(min(data[2])) + '        max = ' + str(max(data[2])))
 
     nu1 = nu1[datFl]
     fnu1 = fnu1[datFl]
@@ -354,7 +394,7 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     plt.plot(nu1, fnu1)
     plt.errorbar(nu1, fnu1, unu1)
 
-    if (upFlag[0] != -1):
+    if (len(upFlag) != 0 and upFlag[0] != -1):
         plt.plot(upNu, upFnu,marker = 'X')
 
     testbb(lum, tstellar, D)
@@ -401,13 +441,13 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     #stringy += "\nrho = " + (rho).floor() + '\nDMass=' + mass + ' Msol'
 
 
-    for i in wave:
-        if (wave[i] > 0.52 and wave[i] <= 0.54):
-            idx = i
-            break
+#    for i in wave:
+ #       if (wave[i] > 0.52 and wave[i] <= 0.54):
+   #         idx = i
+  #          break
     #idx = where(wave gt 0.52 and wave le 0.54)
-    wav = wave[idx]
-    tau_print = tau[idx]
+    #wav = wave[idx]
+    #tau_print = tau[idx]
 #should be an array of length 3.
 #x axis:: element 0, z axis:: element 1, y axis:: element 2
 #doesn't matter for wav, all the same lambda
