@@ -41,7 +41,7 @@ def planck(T, wave):
     returnThis = []
     bnuArr = bnu(T, wave)
     for i in range(len(bnuArr)):
-        returnThis.append(bnuArr[i] * (nu[i]/wave[i]))
+        returnThis.append(float(bnuArr[i] * (nu[i]/wave[i])))
     return returnThis
 
 def bnu(T, wave):
@@ -102,25 +102,25 @@ def testbb(lum,temp,rstar,errorcheck="errorcheck"): #rstar is distance to object
     #wavelength in angstroms
 
     bbflux = planck(temp, wave)
-    bbflux = float(bbflux)
     integral = idl_tabulate(wave, bbflux)
-    bbflux = bbflux * (lum/integral)
+    for i in range(len(bbflux)):
+        bbflux[i] = float(bbflux[i] * (lum/integral))
     wave = wave/1.0e4 #convert to microns
     if errorcheck == "errorcheck":
-        print(integral)
+        print("integral is" + str(integral))
 
     #stop
-    yfinal = (bbflux/3e-13)*((wave)^2)
-    yfinal = yfinal * const * math.pi / (4. * math.pi * rstar^2.)
+    yfinal = []
+    for i in range(len(bbflux)):
+        yfinal.append(((bbflux[i]/3e-13)*((wave[i])^2))* const * math.pi / (4. * math.pi * rstar^2.))
     plt.plot(wave,yfinal/math.pi*1.0e3)
 
-    temporary_var = []
     maxYFinal = max(yfinal)
     for i in yfinal:
         if (yfinal[i] == maxYFinal):
-            temporary_var.append(yfinal[i])
-    print("max flux at a wavelength of " + yfinal[temporary_var])
-    print('corresponding to a TEST BB temp of  ' + 2897/yfinal[temporary_var])
+            temporary_var = i
+    print("max flux at a wavelength of " + str(yfinal[temporary_var]))
+    print('corresponding to a TEST BB temp of  ' + str(2897/yfinal[temporary_var]))
 
 def chi_squared(fObserved, fExpected, errors, p):
     if len(fObserved) != len(fExpected):
@@ -471,4 +471,27 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     pdtk.plot_dust_temp_kelsey(username, distributionFile, symmetric)
     sk.cd_kelsey('/Users/' + username + '/mocassin-rw_changes/output')
     os.system('cp sn_smooth.eps ' + directoryname + '/' + starname + '_' + id + '.eps')
-    srw.SavWriter('mocplot_variables.sav', rin, rout, rho, lum, tstellar, starname, diffuse, distance, symmetric, username, outfoldername, starnum, donut, sil, carb, name_gs, filename_gs, percent_gs, totaltime, infile, nduststr, distributionFile)
+    f = open ('mocplot_variables.sav', 'w')
+    f.write(rin)
+    f.write(rout)
+    f.write(rho)
+    f.write(lum)
+    f.write(tstellar)
+    f.write(starname)
+    f.write(diffuse)
+    f.write(distance)
+    f.write(symmetric)
+    f.write(username)
+    f.write(outfoldername)
+    f.write(starnum)
+    f.write(donut)
+    f.write(sil)
+    f.write(carb)
+    f.write(name_gs)
+    f.write(filename_gs)
+    f.write(percent_gs)
+    f.write(totaltime)
+    f.write(infile)
+    f.write(nduststr)
+    f.write(distributionFile)
+    f.close()
