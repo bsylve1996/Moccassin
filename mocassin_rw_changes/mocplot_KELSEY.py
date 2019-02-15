@@ -9,6 +9,7 @@ import plot_dust_temp_kelsey as pdtk
 import SUPER_KELSEY as sk
 import os
 from scipy import interpolate
+from scipy.interpolate import InterpolatedUnivariateSpline
 
 
 def rebin(a, new_shape):
@@ -75,19 +76,6 @@ def bnu(T, wave):
         returningThis.append((2*h*(float(nuoverc[i])**2) * float(nu[i])) / (float(exp(float(expo[i])))-1))
     return returningThis
 
-def idl_tabulate(x, f, p=5) :
-    def newton_cotes(x, f) :
-        if x.shape[0] < 2 :
-            return 0
-        rn = (x.shape[0] - 1) * (x - x[0]) / (x[-1] - x[0])
-        import scipy as sc
-        weights = sc.integrate.newton_cotes(rn)[0]
-        return (x[-1] - x[0]) / (x.shape[0] - 1) * np.dot(weights, f)
-    ret = 0
-    for idx in range(0, x.shape[0], p - 1) :
-        ret += newton_cotes(x[idx:idx + p], f[idx:idx + p])
-    return ret
-
 def testbb(lum,temp,rstar,errorcheck="errorcheck"): #rstar is distance to object in pc
     if errorcheck == "errorcheck":
         print('testbbing')
@@ -102,10 +90,13 @@ def testbb(lum,temp,rstar,errorcheck="errorcheck"): #rstar is distance to object
     #wavelength in angstroms
 
     bbflux = planck(temp, wave)
-    integral = idl_tabulate(wave, bbflux)
+    wave_x = np.array(wave)
+    bbflux_y = np.array(bbflux)
+    integral = InterpolatedUnivariateSpline(x, y, k = 5).integral(min(wave),max(wave))
     for i in range(len(bbflux)):
         bbflux[i] = float(bbflux[i] * (lum/integral))
-    wave = wave/1.0e4 #convert to microns
+    for i in range(len(wave)):
+        wave[i] = wave[i]/1.0e4 #convert to microns
     if errorcheck == "errorcheck":
         print("integral is" + str(integral))
 
