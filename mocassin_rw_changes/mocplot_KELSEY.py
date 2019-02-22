@@ -92,7 +92,7 @@ def testbb(lum,temp,rstar,errorcheck="errorcheck"): #rstar is distance to object
     bbflux = planck(temp, wave)
     wave_x = np.array(wave)
     bbflux_y = np.array(bbflux)
-    integral = InterpolatedUnivariateSpline(x, y, k = 5).integral(min(wave),max(wave))
+    integral = InterpolatedUnivariateSpline(wave_x, bbflux_y, k = 5).integral(min(wave),max(wave))
     for i in range(len(bbflux)):
         bbflux[i] = float(bbflux[i] * (lum/integral))
     for i in range(len(wave)):
@@ -103,8 +103,12 @@ def testbb(lum,temp,rstar,errorcheck="errorcheck"): #rstar is distance to object
     #stop
     yfinal = []
     for i in range(len(bbflux)):
-        yfinal.append(((bbflux[i]/3e-13)*((wave[i])^2))* const * math.pi / (4. * math.pi * rstar^2.))
-    plt.plot(wave,yfinal/math.pi*1.0e3)
+        yfinal.append(((bbflux[i]/3e-13)*((wave[i])^2))* const * math.pi / (4. * math.pi * rstar**2.))
+
+    graphing_yfinal = []
+    for i in range(len(yfinal)):
+        graphing_yfinal = yfinal[i]/math.pi*1.0e3
+    plt.plot(wave,graphing_yfinal)
 
     maxYFinal = max(yfinal)
     for i in yfinal:

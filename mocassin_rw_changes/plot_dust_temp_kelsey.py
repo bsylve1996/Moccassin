@@ -53,11 +53,11 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
     lun = Scanner(file=sizefile)
     nsizes = lun.next_int()
     print(sizefile)
-    class MyStructDustSizes():
-        def __init__(self, index, radius, weight):
-            self.index = index
-            self.radius = radius
-            self.weight = weight
+    #class MyStructDustSizes():
+     #   def __init__(self, index, radius, weight):
+      #      self.index = index
+       #     self.radius = radius
+        #    self.weight = weight
 
     #dustsizes = []
     #for i in range(nsizes):
