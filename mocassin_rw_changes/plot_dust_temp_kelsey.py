@@ -6,7 +6,7 @@
 
 import SUPER_KELSEY as sk
 import numpy as np
-import Scanner
+from Scanner import Scanner
 import math
 import matplotlib.pyplot as plt
 
@@ -47,33 +47,33 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
                 for t1 in range(3):
                     convergence[x1][y1][z1].n[t1] = lun.next_float()
 
-    sizefile = 'input/' + str(distributionFile)
+    sizefile = str(distributionFile)
     #if (includePAHS == "includePAHS"):
     #    sizefile = 'input/PAH_sizes.dat'
     lun = Scanner(file=sizefile)
     nsizes = lun.next_int()
-
+    print(sizefile)
     class MyStructDustSizes():
         def __init__(self, index, radius, weight):
             self.index = index
             self.radius = radius
             self.weight = weight
 
-    dustsizes = []
-    for i in range(nsizes):
-        dustsizes.append(MyStructDustSizes())
+    #dustsizes = []
+    #for i in range(nsizes):
+     #   dustsizes.append(MyStructDustSizes())
 
     speciesfile = 'input/grainspecies.dat' #'primary_grainspecies.dat'
     lun = Scanner(file=speciesfile)
-    nspecies =  lun.next_float()
+    nspecies =  lun.next_int()
     dustnames = []
     dustabundances = []
     while(lun.has_next()):
         dustnames.append(lun.next())
         dustabundances.append(lun.next())
 
-    if errorcheck.equals("errorcheck"):
-        print('dnames, dabundances', dustnames, dustabundances)
+    #if errorcheck.equals("errorcheck"):
+    print('dnames, dabundances', dustnames, dustabundances)
 
     mocassinfile = 'output/dustGrid.out'
 

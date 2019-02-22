@@ -149,11 +149,11 @@ def make_grainspecies_kelsey(name, file, percent, silicatepercent, AMCpercent):
     if (numspecies == 0):
         if (AMCpercent == 0):
             filenumber.write(ssi(1))
-            filenumber.write("'dustData/sil-oss1.nk' " + sss(silicatepercent / 100.0))
+            filenumber.write(" 'dustData/sil-oss1.nk' " + sss(silicatepercent / 100.0))
         else:
             filenumber.write(ssi(2))
-            filenumber.write("'dustData/sil-oss1.nk' " + sss(silicatepercent / 100.0))
-            filenumber.write("'dustData/amC-hann.nk' " + sss(AMCpercent / 100.0))
+            filenumber.write(" 'dustData/sil-oss1.nk' " + sss(silicatepercent / 100.0))
+            filenumber.write(" 'dustData/amC-hann.nk' " + sss(AMCpercent / 100.0))
             if (silicatepercent / 100.0 + AMCpercent / 100.0 != 1):
                 print('error in grainspecies!!!')
     else:
