@@ -16,8 +16,8 @@ def ssf(number):
 def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "errorcheck", includePAHS = "includePAHS"):
 
     sk.cd_kelsey('/Users/' + username + '/mocassin-rw_changes/')
-    if (errorcheck == "errorcheck"):
-        print('plotting dust')
+    #if (errorcheck == "errorcheck"):
+    print('plotting dust')
 
     lun = Scanner(file = 'output/grid0.out')
     #lun = open('output/grid0.out')

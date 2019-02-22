@@ -103,15 +103,15 @@ def testbb(lum,temp,rstar,errorcheck="errorcheck"): #rstar is distance to object
     #stop
     yfinal = []
     for i in range(len(bbflux)):
-        yfinal.append(((bbflux[i]/3e-13)*((wave[i])^2))* const * math.pi / (4. * math.pi * rstar**2.))
+        yfinal.append(((bbflux[i]/3e-13)*((wave[i])**2))* const * math.pi / (4. * math.pi * rstar**2.))
 
     graphing_yfinal = []
     for i in range(len(yfinal)):
-        graphing_yfinal = yfinal[i]/math.pi*1.0e3
+        graphing_yfinal.append(yfinal[i]/math.pi*1.0e3)
     plt.plot(wave,graphing_yfinal)
 
     maxYFinal = max(yfinal)
-    for i in yfinal:
+    for i in range(len(yfinal)):
         if (yfinal[i] == maxYFinal):
             temporary_var = i
     print("max flux at a wavelength of " + str(yfinal[temporary_var]))
@@ -394,27 +394,27 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
 
     testbb(lum, tstellar, D)
 
-    irs = np.loadtxt('/Users/mocassin/dust_modelling/accessories/staceyplots/lmcsmcfullspec2e.txt', unpack=True, usecols=(2))
+    irs = np.loadtxt('/Users/mocassin/dust_modelling/accessories/staceyplots/lmcsmcfullspec2e.txt', unpack=True, usecols=(2), skiprows=1)
 
 #read in a file with all of the SED data in a list called spectralist.txt
     if (starnum >= 0):
-        if (os.path.isfile('/Users/mocassin/dust_modelling/accessories/staceyplots/IRspectra/' + irs[starnum])): visibledatacheck=1
-    if (os.path.isfile('/Users/mocassin/dust_modelling/accessories/plots/text/' + starname + 'visibledata.txt')): irsdatacheck=1
-    if (os.path.isfile('/Users/mocassin/dust_modelling/accessories/plots/text/' + starname + 'data.txt')): jhkcheck=1
+        if (os.path.isfile('/Users/mocassin/dust_modelling/accessories/staceyplots/IRspectra/' + str(irs[starnum]))): visibledatacheck=1
+    if (os.path.isfile('/Users/mocassin/dust_modelling/accessories/plots/text/' + str(starname) + 'visibledata.txt')): irsdatacheck=1
+    if (os.path.isfile('/Users/mocassin/dust_modelling/accessories/plots/text/' + str(starname) + 'data.txt')): jhkcheck=1
 
 #read in data to be plotted from RSG data.
-    if (irsdatacheck): nu1, fnu1, irs_e_wave, irs_e_flux = np.loadtxt('/Users/mocassin/dust_modelling/accessories/staceyplots/IRspectra/'+irs[starnum], unpack=True)
-    if (visibledatacheck):  w, f = np.loadtxt('/Users/mocassin/dust_modelling/accessories/plots/text/'+starname+'visibledata.txt', unpack=True)
-    if (jhkcheck):  wdata, fdata = np.loadtxt('/Users/mocassin/dust_modelling/accessories/plots/text/'+starname+'data.txt', unpack=True)
+    if (irsdatacheck): nu1, fnu1, irs_e_wave, irs_e_flux = np.loadtxt('/Users/mocassin/dust_modelling/accessories/staceyplots/IRspectra/'+ str(irs[starnum]), unpack=True)
+    if (visibledatacheck):  w, f = np.loadtxt('/Users/mocassin/dust_modelling/accessories/plots/text/' + str(starname) + 'visibledata.txt', unpack=True)
+    if (jhkcheck):  wdata, fdata = np.loadtxt('/Users/mocassin/dust_modelling/accessories/plots/text/' + str(starname) + 'data.txt', unpack=True)
 
 #if mocplot cant find the file from bill, then it will search in the user's directory... IF IT IS THERE!!!
     if (jhkcheck == 0):#if the JHK data is not in bill's directory, search user's
-        if (os.path.isfile('/Users/' + username + '/rsgs/plots/text/' + starname + 'irsdata.txt')): visibledatacheck=1
-        if (os.path.isfile('/Users/' + username + '/rsgs/plots/text/' + starname + 'visibledata.txt')): irsdatacheck=1
-        if (os.path.isfile('/Users/' + username + '/rsgs/plots/text/' + starname + 'data.txt')): jhkcheck=1
-        if (irsdatacheck):  nu1, fnu1, irs_e_wave, irs_e_flux = np.loadtxt('/Users/'+username+'/rsgs/plots/text/'+starname+'irsdata.txt', unpack=True)
-        if (visibledatacheck):  w, f = np.loadtxt('/Users/'+username+'/rsgs/plots/text/'+starname+'visibledata.txt', unpack=True)
-        if (jhkcheck): wdata, fdata = np.loadtxt('/Users/'+username+'/rsgs/plots/text/'+starname+'data.txt', unpack=True)
+        if (os.path.isfile('/Users/' + str(username) + '/rsgs/plots/text/' + str(starname) + 'irsdata.txt')): visibledatacheck=1
+        if (os.path.isfile('/Users/' + str(username) + '/rsgs/plots/text/' + str(starname) + 'visibledata.txt')): irsdatacheck=1
+        if (os.path.isfile('/Users/' + str(username) + '/rsgs/plots/text/' + str(starname) + 'data.txt')): jhkcheck=1
+        if (irsdatacheck):  nu1, fnu1, irs_e_wave, irs_e_flux = np.loadtxt('/Users/' + str(username) + '/rsgs/plots/text/' + str(starname) + 'irsdata.txt', unpack=True)
+        if (visibledatacheck):  w, f = np.loadtxt('/Users/' + str(username) + '/rsgs/plots/text/' + str(starname) + 'visibledata.txt', unpack=True)
+        if (jhkcheck): wdata, fdata = np.loadtxt('/Users/' + str(username) + '/rsgs/plots/text/' + str(starname) + 'data.txt', unpack=True)
 
     if (visibledatacheck): plt.plot(w, f) #plot visible
     if (irsdatacheck): plt.plot(nu1, fnu1) #irs
