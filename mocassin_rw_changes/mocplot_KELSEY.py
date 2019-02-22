@@ -423,10 +423,11 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     #stringy = id + '\nrin =       ' + rin + ' cm\nrout =      ' + rout + ' cm\nL =         ' + lum + ' e36 erg/s\nT =         ' + tstellar.floor() + ' K'
     index = []
     numspecies = 0
-    for i in percent_gs:
-        if percent_gs[i] > 0:
-            index.append(percent_gs[i])
-            numspecies += 1
+    for i in range(len(percent_gs)):
+        for j in range(len(percent_gs[i])):
+            if percent_gs[i][j] > 0:
+                index.append(percent_gs[i])
+                numspecies += 1
 
    # if (numspecies == 0):
     #    stringy += '\noss ' + sk.ssi(sil) + ' amC ' + sk.ssi(carb)

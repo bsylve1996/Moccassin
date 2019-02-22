@@ -84,13 +84,19 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
 
     dustprop = [[[MyStructDustProp(1,nspecies+1,nsizes+1) for col in range(nx)]for row in range(ny)] for x in range(nz)]
     lun = Scanner(file=mocassinfile)
-    for x1 in range(nx):
+    for z1 in range(nz):
         for y1 in range(ny):
-            for z1 in range(nz):
-                dustprop[x1][y1][z1].n[0] = lun.next_float()
-                for t1 in range(nspecies+1):
-                    for t2 in range(nsizes+1):
-                        dustprop[x1][y1][z1].t[t1][t2] = lun.next_float()
+            for x1 in range(nx):
+                if lun.has_next():
+                    dustprop[x1][y1][z1].n[0] = lun.next_float()
+                else:
+                    dustprop[x1][y1][z1].n[0] = 0
+                for t1 in range(nsizes+1):
+                    for t2 in range(nspecies+1):
+                        if lun.has_next():
+                            dustprop[x1][y1][z1].t[t1][t2] = lun.next_float()
+                        else:
+                            dustprop[x1][y1][z1].t[t1][t2] = 0
     r = [[[0 for col in range(nz)]for row in range(ny)] for x in range(nx)]
     celltot = nx * ny * nz
     r1 = [0 for col in range(celltot)]
@@ -111,23 +117,23 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
     for i in range(nx-1):
         for j in range(nx-1):
             for k in range(nx-1):
-                r[i, j, k] = math.sqrt(x[i] ^ 2 + x[j] ^ 2 + x[k] ^ 2)
+                r[i, j, k] = math.sqrt(x[i] ** 2 + x[j] ** 2 + x[k] ** 2)
                 if (convergence[i, j, k].n[1] == 1):
-                    if (math.sqrt(r[i, j, k] ^ 2 - x[i] ^ 2) / r[i, j, k] > 0.707107):
+                    if (math.sqrt(r[i, j, k] ** 2 - x[i] ** 2) / r[i, j, k] > 0.707107):
                         r1[ii] = r[i, j, k]
-                    elif (math.sqrt(r[i, j, k] ^ 2 - x[i] ^ 2) / r[i, j, k] < 0.707107):
+                    elif (math.sqrt(r[i, j, k] ** 2 - x[i] ** 2) / r[i, j, k] < 0.707107):
                         r2[jj] = r[i, j, k]
                     r3[kk] = r[i, j, k]
 
                 for l in range(nsizes-1):
                     for m in range(nspecies-1):
                         temp[i, j, k].t[l] = temp[i, j, k].t[l] + dustprop[i, j, k].t[m + 1, l + 1] * dustabundances[m]
-                        if (math.sqrt(r[i, j, k] ^ 2 - x[i] ^ 2) / r[i, j, k] > 0.707107 and convergence[i, j, k].n[1] == 1):
+                        if (math.sqrt(r[i, j, k] ** 2 - x[i] ** 2) / r[i, j, k] > 0.707107 and convergence[i, j, k].n[1] == 1):
                             t1[ii] = temp[i, j, k]
         if (convergence[i, j, k].n[1] == 1):
-            if (math.sqrt(r[i, j, k] ^ 2 - x[i] ^ 2) / r[i, j, k] > 0.707107 ):
+            if (math.sqrt(r[i, j, k] ** 2 - x[i] ** 2) / r[i, j, k] > 0.707107 ):
                 ii=ii+1
-            if (math.sqrt(r[i, j, k] ^ 2 - x[i] ^ 2) / r[i, j, k] < 0.707107):
+            if (math.sqrt(r[i, j, k] ** 2 - x[i] ** 2) / r[i, j, k] < 0.707107):
                 jj=jj+1
             kk=kk+1
 
