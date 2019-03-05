@@ -463,7 +463,7 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
 #                    extra_moc_plot(fnu1, nu1, data[4] / D ^ 2, data[1], irs_e_flux, ch3)
 #                    star_dust_mass(mass, ch3, starname, id, username)
 
-    plt.show()
+#    plt.show()
     pdtk.plot_dust_temp_kelsey(username, distributionFile, symmetric)
     sk.cd_kelsey('/Users/' + username + '/mocassin-rw_changes/output')
     os.system('cp sn_smooth.eps ' + directoryname + '/' + starname + '_' + id + '.eps')

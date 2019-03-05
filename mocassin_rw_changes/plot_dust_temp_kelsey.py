@@ -28,25 +28,25 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
     lun.next_int()
     lun.next_int()
     rout = lun.next_float()
+    print("rout = " + str(rout))
     class MyStructConver():
         def __init__(self, sizeofn):
             self.n = [0 for x in range(sizeofn)]
     convergence = [[[MyStructConver(3)for col in range(nz)]for row in range(ny)] for x in range(nx)]
     x = []
     for xl in range(nx):
-        x.append(lun.next_float)
+        x.append(lun.next_float())
     y = []
     for yl in range(ny):
-        y.append(lun.next_float)
+        y.append(lun.next_float())
     z = []
     for zl in range(nz):
-        z.append(lun.next_float)
+        z.append(lun.next_float())
     for x1 in range(nx):
         for y1 in range(ny):
             for z1 in range(nz):
                 for t1 in range(3):
                     convergence[x1][y1][z1].n[t1] = lun.next_float()
-
     sizefile = str(distributionFile)
     #if (includePAHS == "includePAHS"):
     #    sizefile = 'input/PAH_sizes.dat'
@@ -62,6 +62,12 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
     #dustsizes = []
     #for i in range(nsizes):
      #   dustsizes.append(MyStructDustSizes())
+    dustsizes = []
+    unimportant = 0
+    while(lun.has_next()):
+        unimportant = lun.next_float()
+        dustsizes.append(lun.next_float())
+        unimportant = lun.next_float()
 
     speciesfile = 'input/grainspecies.dat' #'primary_grainspecies.dat'
     lun = Scanner(file=speciesfile)
@@ -81,7 +87,8 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         def __init__(self, sizeofn, sizeoft, sizeoftrow):
             self.n = [0 for x in range(sizeofn)]
             self.t = [[0 for row in range(sizeoft)] for x in range(sizeoftrow)]
-
+    print("nx = " + str(nx) + "    ny = " + str(ny) + "     nz = " + str(nz))
+    print("nspecies = " + str(nspecies) + "       nsize = " + str(nsizes))
     dustprop = [[[MyStructDustProp(1,nspecies+1,nsizes+1) for col in range(nx)]for row in range(ny)] for x in range(nz)]
     lun = Scanner(file=mocassinfile)
     for z1 in range(nz):
@@ -117,23 +124,26 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
     for i in range(nx-1):
         for j in range(nx-1):
             for k in range(nx-1):
-                r[i, j, k] = math.sqrt(x[i] ** 2 + x[j] ** 2 + x[k] ** 2)
-                if (convergence[i, j, k].n[1] == 1):
-                    if (math.sqrt(r[i, j, k] ** 2 - x[i] ** 2) / r[i, j, k] > 0.707107):
-                        r1[ii] = r[i, j, k]
-                    elif (math.sqrt(r[i, j, k] ** 2 - x[i] ** 2) / r[i, j, k] < 0.707107):
-                        r2[jj] = r[i, j, k]
-                    r3[kk] = r[i, j, k]
+                r[i][j][k] = math.sqrt(x[i]**2 + x[j]**2 + x[k]**2)
+                if (convergence[i][j][k].n[1] == 1):
+                    if (math.sqrt(r[i][j][k] ** 2 - x[i] ** 2) / r[i][j][k] > 0.707107):
+                        r1[ii] = r[i][j][k]
+                    elif (math.sqrt(r[i][j][k] ** 2 - x[i] ** 2) / r[i][j][k] < 0.707107):
+                        r2[jj] = r[i][j][k]
+                    r3[kk] = r[i][j][k]
 
                 for l in range(nsizes-1):
                     for m in range(nspecies-1):
-                        temp[i, j, k].t[l] = temp[i, j, k].t[l] + dustprop[i, j, k].t[m + 1, l + 1] * dustabundances[m]
-                        if (math.sqrt(r[i, j, k] ** 2 - x[i] ** 2) / r[i, j, k] > 0.707107 and convergence[i, j, k].n[1] == 1):
-                            t1[ii] = temp[i, j, k]
-        if (convergence[i, j, k].n[1] == 1):
-            if (math.sqrt(r[i, j, k] ** 2 - x[i] ** 2) / r[i, j, k] > 0.707107 ):
+                        try:
+                            temp[i][j][k].t[l] = float(temp[i][j][k].t[l]) + float(dustprop[i][j][k].t[m + 1][l + 1]) * float(dustabundances[m])
+                        except:
+                            break
+                        if (math.sqrt(r[i][j][k] ** 2 - x[i] ** 2) / r[i][j][k] > 0.707107 and convergence[i][j][k].n[1] == 1):
+                            t1[ii] = temp[i][j][k]
+        if (convergence[i][j][k].n[1] == 1):
+            if (math.sqrt(r[i][j][k] ** 2 - x[i] ** 2) / r[i][j][k] > 0.707107 ):
                 ii=ii+1
-            if (math.sqrt(r[i, j, k] ** 2 - x[i] ** 2) / r[i, j, k] < 0.707107):
+            if (math.sqrt(r[i][j][k] ** 2 - x[i] ** 2) / r[i][j][k] < 0.707107):
                 jj=jj+1
             kk=kk+1
 
@@ -141,14 +151,24 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
 #the dust shell along the x - axis(to account for torus models!)
     plt.figure(1)
     if (symmetric == 0):
-        plotRout = r[15:nx - 1, 15, 15]
-        plotTemp_1 = temp[15:nx - 1, 15, 15].t[nsizes - 1] #covers the largest grain
-        plotTemp_2 = temp[15:nx - 1, 15, 15].t[0] #covers the smallest grain
+        plotRout = []
+        plotTemp_1 = []
+        plotTemp_2 = []
+        print("length of r = " + str(len(r)))
+        print("length of r[0][0] = " + str(len(r[0][0])))
+        for i in range(len(r)):
+            if i >= 15: 
+                plotRout.append(r[i][15][25])
+                plotTemp_1.append(temp[i][15][15].t[nsizes - 1])#covers the largest grain
+                plotTemp_2.append(temp[i][15][15].t[0])#covers the smallest grain
+        #plotRout = r[15:][15][15]
+        #plotTemp_1 = temp[15:][15][15].t[nsizes - 1] 
+        #plotTemp_2 = temp[15:][15][15].t[0] 
 
         plt.subplot(221)
         plt.plot(plotRout,plotTemp_1, marker = '+')
         plt.plot(plotRout, plotTemp_2, marker = '+')
-        plt.axis([0.,max(plotRout) + (0.25 * max(plotRout)),0, max(plotTemp_1) + (0.25 * max(plotTemp_1))])
+        plt.axis([0.,max(plotRout) + (0.25 * max(plotRout)), 0, max(plotTemp_1) + (0.25 * max(plotTemp_1))])
         plt.xlabel('r [cm]')
         plt.ylabel('Temp (k)')
         plt.title('Temperature Vs. Radius')
@@ -157,28 +177,31 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         plt.subplot(222)
         plt.plot(plotRout, plotTemp_1)
         plt.title('Temperature Vs. Radius2')
-        index = []
-        for i in len(r):
-            if (r[i,15,15] == math.median(r[i,15,15])):
-                index.append(i)
+        n = 0
+        for i in range(len(r)):
+            if (r[i,15,15] == math.median(r[i][15][15])):
+                index = i
         ymax = -1e308
-        for i in len(temp):
-            for j in len(temp[i,15,15].t):
-                if(temp[i,15,15].t[j] > ymax):
-                    ymax = temp[i,15,15].t[j]
+        for i in range(len(temp)):
+            for j in range(len(temp[i][15][15].t)):
+                if(temp[i][15][15].t[j] > ymax):
+                    ymax = temp[i][15][15].t[j]
         ymin = ymax
-        for i in len(temp):
-            for j in len(temp[i, 15, 15].t):
-                if (temp[i, 15, 15].t[j] < ymin):
-                    ymin = temp[i, 15, 15].t[j]
+        for i in range(len(temp)):
+            for j in range(len(temp[i][15][15].t)):
+                if (temp[i][15][15].t[j] < ymin):
+                    ymin = temp[i][15][15].t[j]
         elements = 0
         for i in range(nx - 1):
-            if (r[i, 15, 15].exists()):
-                elements += 1
+            try:
+                if (r[i][15][15] > 0 or r[i][15][15] <= 0):
+                    elements += 1
+            except:
+                break
         plt.subplot(223)
-        plt.plot(dustsizes.radius, temp[index, 15, 15].t, marker = 'D', label = 'a')
-        plt.plot(dustsizes.radius, temp[2, 15, 15].t, marker = '^', label = 'b')
-        plt.plot(dustsizes.radius, temp[elements - 2, 15, 15].t, marker = 's', label = 'c')
+        plt.plot(dustsizes, temp[index][15][15].t, marker = 'D', label = 'a')
+        plt.plot(dustsizes, temp[2][15][15].t, marker = '^', label = 'b')
+        plt.plot(dustsizes, temp[elements - 2][15][15].t, marker = 's', label = 'c')
         plt.title('Temp vs size')
         plt.xlabel('size in microns')
         plt.ylabel('Temp (k)')
@@ -192,46 +215,49 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
     else:
         plt.gca().set_color_cycle(['red', 'green', 'blue', 'yellow'])
         plt.subplot(221)
-        plt.plot(r[0, 0, 0:nx-1], temp[0, 0, 0:nx-1].t[nsizes - 1], '+', r[0, 0, 0:nx-1], temp[0, 0, 0,nx-1].t[0], '+', linewidth = 1)
+        plt.plot(r[0][0][0:nx-1], temp[0][0][0:nx-1].t[nsizes - 1], '+', r[0][0][0:nx-1], temp[0][0][0,nx-1].t[0], '+', linewidth = 1)
         maxTemp = -1e308
         for i in range (nx - 1):
             if (temp[0,0,i].t19 > maxTemp):
-                maxTemp = temp[0,0,i].t[19]
-        plt.axis([0., rout, 0., maxTemp])
+                maxTemp = temp[0][0][i].t[19]
+        plt.axis([0., rout][0., maxTemp])
         plt.xlabel('r [cm]')
         plt.ylabel('Temp (k)')
         plt.title('Temperature Vs. Radius')
 
         plt.subplot(222)
-        plt.plot(r[0, 0,0:nx-1], temp[0, 0,0:nx-1].t[nsizes - 1])
+        plt.plot(r[0][0][0:nx-1], temp[0][0][0:nx-1].t[nsizes - 1])
         plt.title = 'Temperature Vs. Radius2'
 
-        index = []
+
         for i in len(r):
-            if (r[i, 0, 0] == math.median(r[i, 0, 0])):
-                index.append(i)
+            if (r[i][0][0] == math.median(r[i][0][0])):
+                index = i
         ymax = -1e308
         for i in len(temp):
-            for j in len(temp[i, 0, 0].t):
-                if (temp[i, 0, 0].t[j] > ymax):
-                    ymax = temp[i, 0, 0].t[j]
+            for j in len(temp[i][0][0].t):
+                if (temp[i][0][0].t[j] > ymax):
+                    ymax = temp[i][0][0].t[j]
         ymin = ymax
         for i in len(temp):
-            for j in len(temp[i, 0, 0].t):
-                if (temp[i, 0, 0].t[j] < ymin):
-                    ymin = temp[i, 0, 0].t[j]
+            for j in len(temp[i][0][0].t):
+                if (temp[i][0][0].t[j] < ymin):
+                    ymin = temp[i][0][0].t[j]
         elements = 0
         for i in range(nx - 1):
-            if (r[i, 0, 0].exists()):
-                elements += 1
+            try:
+                if (r[i][0][0] > 0 or r[i][0][0] <= 0):
+                    elements += 1
+            except:
+                break
         plt.subplot(223)
-        plt.plot(dustsizes.radius, temp[index, 0, 0].t,marker = 'D')
-        plt.plot(dustsizes.radius, temp[2, 0, 0].t,marker = '^')
-        plt.plot(dustsizes.radius, temp[elements - 2, 0, 0].t,marker = 's')
+        plt.plot(dustsizes, temp[index][0][0].t,marker = 'D')
+        plt.plot(dustsizes, temp[2][0][0].t,marker = '^')
+        plt.plot(dustsizes, temp[elements - 2][0][0].t,marker = 's')
         plt.title('Temp vs size')
         plt.xlabel('size in microns')
         plt.ylabel('Temp (k)')
-        darr = np.array(dustsizes.radius)
+        darr = np.array(dustsizes)
         plt.axis([darr.min(), darr.max(), ymin - 15, ymax + 15])
         plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), fancybox=True, shadow=True, ncol=5)
 
@@ -243,15 +269,18 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         plt.figure(2)
         elements = 0
         for i in range(nx - 1):
-            if (r[i, 0, 0].exists()):
-                elements += 1
-        plt.plot(dustsizes.radius, temp[index, 0, 0].t, marker = 'D')
-        plt.plot(dustsizes.radius, temp[2, 0, 0].t, marker = '^')
-        plt.plot(dustsizes.radius, temp[elements - 2, 0, 0].t, marker = 's')
+            try:
+                if (r[i][0][0] > 0 or r[i][0][0] <= 0):
+                    elements += 1
+            except:
+                break
+        plt.plot(dustsizes, temp[index][0][0].t, marker = 'D')
+        plt.plot(dustsizes, temp[2][0][0].t, marker = '^')
+        plt.plot(dustsizes, temp[elements - 2][0][0].t, marker = 's')
         plt.title('Temp vs size')
         plt.xlabel('size in microns')
         plt.ylabel('Temp (k)')
-        plt.axis([min(dustsizes.radius), .01, ymin - 15, ymax + 15])
+        plt.axis([min(dustsizes), .01, ymin - 15, ymax + 15])
     plt.show()
     if (errorcheck == "errorcheck"):
         print('Done plotting dust Temperatures!')
