@@ -63,11 +63,39 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
     #for i in range(nsizes):
      #   dustsizes.append(MyStructDustSizes())
     dustsizes = []
-    unimportant = 0
+    index = []
+    weight = []
     while(lun.has_next()):
-        unimportant = lun.next_float()
-        dustsizes.append(lun.next_float())
-        unimportant = lun.next_float()
+        temporary = lun.next()
+        try:
+            if isinstance(float(temporary), float):
+                index.append(temporary)
+        except:
+            break
+        temporary = lun.next()
+        try:
+            if isinstance(float(temporary), float):
+                dustsizes.append(lun.next_float())
+        except:
+            break
+        temporary
+        try:
+            if isinstance(float(temporary), float):
+                weight.append(temporary)
+        except:
+            break
+    counter = 0
+    extra_numbers = []
+    while(lun.has_next()):
+        temporary = lun.next()
+        if (counter == 2):
+            break
+        try:
+            if isinstance(float(temporary), float):
+                counter = counter + 1
+                extra_numbers.append(temporary)
+        except:
+            continue
 
     speciesfile = 'input/grainspecies.dat' #'primary_grainspecies.dat'
     lun = Scanner(file=speciesfile)
