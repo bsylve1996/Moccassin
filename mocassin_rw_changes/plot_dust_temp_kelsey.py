@@ -78,7 +78,7 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
                 dustsizes.append(lun.next_float())
         except:
             break
-        temporary
+        temporary = lun.next()
         try:
             if isinstance(float(temporary), float):
                 weight.append(temporary)
@@ -207,7 +207,7 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         plt.title('Temperature Vs. Radius2')
         n = 0
         for i in range(len(r)):
-            if (r[i,15,15] == math.median(r[i][15][15])):
+            if (r[i][15][15] == math.median(r[i][15][15])):
                 index = i
         ymax = -1e308
         for i in range(len(temp)):
