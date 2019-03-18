@@ -206,8 +206,11 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         plt.plot(plotRout, plotTemp_1)
         plt.title('Temperature Vs. Radius2')
         n = 0
+        someTempArrayForMedian = []
         for i in range(len(r)):
-            if (r[i][15][15] == math.median(r[i][15][15])):
+            someTempArrayForMedian.append(r[i][15][15])
+        for i in range(len(r)):
+            if (r[i][15][15] == median(someTempArrayForMedian):
                 index = i
         ymax = -1e308
         for i in range(len(temp)):
@@ -220,7 +223,7 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
                 if (temp[i][15][15].t[j] < ymin):
                     ymin = temp[i][15][15].t[j]
         elements = 0
-        for i in range(nx - 1):
+        for i in range(len(r)):
             try:
                 if (r[i][15][15] > 0 or r[i][15][15] <= 0):
                     elements += 1
