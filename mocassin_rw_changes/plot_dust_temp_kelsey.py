@@ -210,7 +210,7 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         for i in range(len(r)):
             someTempArrayForMedian.append(r[i][15][15])
         for i in range(len(r)):
-            if (r[i][15][15] == median(someTempArrayForMedian):
+            if (r[i][15][15] == median(someTempArrayForMedian)):
                 index = i
         ymax = -1e308
         for i in range(len(temp)):
