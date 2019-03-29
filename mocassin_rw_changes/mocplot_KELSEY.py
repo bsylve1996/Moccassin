@@ -148,7 +148,15 @@ def star_dust_mass(mass, chisqr, starname, runnum, username):
 
 
 def extra_moc_plot(flux_input, lam_input, flux_moc, lam_moc, error_flux_input, chi_sqr):
-    srw.SavWriter('extra_moc_plot.sav',flux_input, lam_input, flux_moc, lam_moc, error_flux_input)
+    #srw.SavWriter('extra_moc_plot.sav',flux_input, lam_input, flux_moc, lam_moc, error_flux_input)
+    f = open('extra_moc_plot.txt', 'w')
+    f.write('flux_input = ' + str(flux_input))
+    f.write('lam_input = ' + str(lam_input))
+    f.write('flux_moc = ' + str(flux_moc))
+    f.write('lam_moc = ' + str(lam_moc))
+    f.write('error_flux_input = ' + str(error_flux_input))
+    f.write('chi_sqr = ' + str(chi_sqr))
+    f.close()
 
     #check input
     if min(lam_input) < 1: print('input fail2')
@@ -218,28 +226,28 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     sk.cd_kelsey('/Users/' + username + '/mocassin-rw_changes/output')
     #srw.SavWriter('mocplot_variables.sav',rin, rout, rho, lum, tstellar, starname, diffuse, distance, symmetric,username, outfoldername, starnum, donut, sil, carb, name_gs, filename_gs, percent_gs, totaltime,infile, nduststr, distributionFile)
     f = open('mocplot_variables.txt', 'w')
-    f.write(str(rin))
-    f.write(str(rout))
-    f.write(str(rho))
-    f.write(str(lum))
-    f.write(str(tstellar))
-    f.write(str(starname))
-    f.write(str(diffuse))
-    f.write(str(distance))
-    f.write(str(symmetric))
-    f.write(str(username))
-    f.write(str(outfoldername))
-    f.write(str(starnum))
-    f.write(str(donut))
-    f.write(str(sil))
-    f.write(str(carb))
-    f.write(str(name_gs))
-    f.write(str(filename_gs))
-    f.write(str(percent_gs))
-    f.write(str(totaltime))
-    f.write(str(infile))
-    f.write(str(nduststr))
-    f.write(str(distributionFile))
+    f.write("rin = " + str(rin))
+    f.write("rout = " + str(rout))
+    f.write("rho = " + str(rho))
+    f.write("lum = " + str(lum))
+    f.write("tstellar = " + str(tstellar))
+    f.write("starname = " + str(starname))
+    f.write("diffuse = " + str (diffuse))
+    f.write("distance = " + str(distance))
+    f.write("symmetric = " + str(symmetric))
+    f.write("username = " + str(username))
+    f.write("outfoldername = " + str(outfoldername))
+    f.write("starnum = " + str(starnum))
+    f.write("donut = " + str(donut))
+    f.write("sil = "  + str(sil))
+    f.write("carb = " + str(carb))
+    f.write("name_gs = " + str(name_gs))
+    f.write("filename_gs = " + str(filename_gs))
+    f.write("perscent_gs = " + str(percent_gs))
+    f.write("total time = " + str(totaltime))
+    f.write("infile = " + str(infile))
+    f.write("nduststr = " + str(nduststr))
+    f.write("distributionFile = " + str(distributionFile))
     numbers = []
     with open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt') as r:
         for line in r:
@@ -297,9 +305,6 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     carb = sk.sss(carb)
 
     if (errorcheck == "errorcheck"): print('SPOT 1.5')
-
-#FIND TAU
-#    wave, tau = np.loadtxt('/Users/mocassin/mocassin-rw_changes/output/tauNu.out', unpack=True)
 
     if (errorcheck == "errorcheck"): print('SPOT 2')
 
@@ -420,7 +425,6 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
     if (irsdatacheck): plt.plot(nu1, fnu1) #irs
     if (jhkcheck): plt.plot(wdata, fdata) #jhk, iras mips data
 
-    #stringy = id + '\nrin =       ' + rin + ' cm\nrout =      ' + rout + ' cm\nL =         ' + lum + ' e36 erg/s\nT =         ' + tstellar.floor() + ' K'
     index = []
     numspecies = 0
     for i in range(len(percent_gs)):
@@ -429,65 +433,29 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
                 index.append(percent_gs[i])
                 numspecies += 1
 
-   # if (numspecies == 0):
-    #    stringy += '\noss ' + sk.ssi(sil) + ' amC ' + sk.ssi(carb)
-    #else:
-     #   for i in range (numspecies-1):
-      #      stringy += '\n' + name_gs[index[i]] + ' ' + sk.ssi(percent_gs[index[i]]) + ' '
-    #stringy += "\nrho = " + (rho).floor() + '\nDMass=' + mass + ' Msol'
+#i fixed this part ish
+"""
+    if (residual == "residual"):
+        if irsdatacheck:
+            #FIND TAU
+            wave, tau = np.loadtxt('/Users/mocassin/mocassin-rw_changes/output/tauNu.out', unpack=True)
+            idx = 0
+            for i in range(len(wave)):
+                if (wave[i] > 0.52 and wave[i] <= 0.54):
+                    idx = i
+                    break
+            wav = wave[idx]
+            tau_print = tau[idx]
+            extra_moc_plot(fnu1, nu1, data[2] / (D**2), data[1], irs_e_flux, ch1)
+            star_dust_mass(mass, ch1, starname, id, username)
+            if n > 0:
+                extra_moc_plot(fnu1, nu1, data[3] / (D**2), data[1], irs_e_flux, ch2)
+                star_dust_mass(mass, ch2, starname, id, username)
+                if n > 1:
+                    extra_moc_plot(fnu1, nu1, data[4] / (D**2), data[1], irs_e_flux, ch3)
+                    star_dust_mass(mass, ch3, starname, id, username)
+"""
 
-
-#    for i in wave:
- #       if (wave[i] > 0.52 and wave[i] <= 0.54):
-   #         idx = i
-  #          break
-    #idx = where(wave gt 0.52 and wave le 0.54)
-    #wav = wave[idx]
-    #tau_print = tau[idx]
-#should be an array of length 3.
-#x axis:: element 0, z axis:: element 1, y axis:: element 2
-#doesn't matter for wav, all the same lambda
-   # stringy += "\ntau = " + tau_print[1] + ' at ' + wav[0] + ' um'
-
-   # if (donut == 0): stringy += '\nShape = Shell'
- #   else: stringy += '\nShape = Torus'
-
-#    if (residual == "residual"):
-#        if irsdatacheck:
-#            extra_moc_plot(fnu1, nu1, data[2] / D ^ 2, data[1], irs_e_flux, ch1)
-#            star_dust_mass(mass, ch1, starname, id, username)
-#            if n > 0:
-#                extra_moc_plot(fnu1, nu1, data[3] / D ^ 2, data[1], irs_e_flux, ch2)
-#                star_dust_mass(mass, ch2, starname, id, username)
-#                if n > 1:
-#                    extra_moc_plot(fnu1, nu1, data[4] / D ^ 2, data[1], irs_e_flux, ch3)
-#                    star_dust_mass(mass, ch3, starname, id, username)
-
-#    plt.show()
     pdtk.plot_dust_temp_kelsey(username, distributionFile, symmetric)
     sk.cd_kelsey('/Users/' + username + '/mocassin-rw_changes/output')
-    os.system('cp sn_smooth.eps ' + directoryname + '/' + starname + '_' + id + '.eps')
-    f = open ('mocplot_variables.sav', 'w')
-    f.write(rin)
-    f.write(rout)
-    f.write(rho)
-    f.write(lum)
-    f.write(tstellar)
-    f.write(starname)
-    f.write(diffuse)
-    f.write(distance)
-    f.write(symmetric)
-    f.write(username)
-    f.write(outfoldername)
-    f.write(starnum)
-    f.write(donut)
-    f.write(sil)
-    f.write(carb)
-    f.write(name_gs)
-    f.write(filename_gs)
-    f.write(percent_gs)
-    f.write(totaltime)
-    f.write(infile)
-    f.write(nduststr)
-    f.write(distributionFile)
-    f.close()
+    os.system('cp sn_smooth.eps ' + str(directoryname) + '/' + str(starname) + '_' + str(id) + '.eps')

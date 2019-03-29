@@ -53,6 +53,7 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
     lun = Scanner(file=sizefile)
     nsizes = lun.next_int()
     print(sizefile)
+    theWordSizes = lun.next()
     #class MyStructDustSizes():
      #   def __init__(self, index, radius, weight):
       #      self.index = index
@@ -75,7 +76,7 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         temporary = lun.next()
         try:
             if isinstance(float(temporary), float):
-                dustsizes.append(lun.next_float())
+                dustsizes.append(float(temporary))
         except:
             break
         temporary = lun.next()
@@ -84,6 +85,7 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
                 weight.append(temporary)
         except:
             break
+    print("dustsizes array size is " + str(len(dustsizes)))
     counter = 0
     extra_numbers = []
     while(lun.has_next()):
@@ -106,7 +108,6 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         dustnames.append(lun.next())
         dustabundances.append(lun.next())
 
-    #if errorcheck.equals("errorcheck"):
     print('dnames, dabundances', dustnames, dustabundances)
 
     mocassinfile = 'output/dustGrid.out'
@@ -236,7 +237,7 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         plt.title('Temp vs size')
         plt.xlabel('size in microns')
         plt.ylabel('Temp (k)')
-        darr = np.array(dustsizes.radius)
+        darr = np.array(dustsizes)
         plt.axis([darr.min(),darr.max(),ymin - 15,ymax + 15])
         plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), fancybox=True, shadow=True, ncol=5)
 
@@ -313,5 +314,7 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
         plt.ylabel('Temp (k)')
         plt.axis([min(dustsizes), .01, ymin - 15, ymax + 15])
     plt.show()
+    #make this save in output
+    plt.savefig("output/sn_smooth", format = "eps")
     if (errorcheck == "errorcheck"):
         print('Done plotting dust Temperatures!')
