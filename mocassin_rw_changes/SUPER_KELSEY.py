@@ -23,56 +23,56 @@ def make_input_kelsey(j, distributionFile, torus, diffuse, n, luminosity, tstell
         else:
             nvalue=n[j]
         if ((symmetric[j] == 1) and (diffuse[j] == 0)):
-            filenumber.write('symmetricXYZ')
+            filenumber.write('symmetricXYZ\n')
 
 #FOR ALL
         if (diffuse[j]):
 #input for SN
-            filenumber.write('autoPackets 0.20 2. 900000000')
-            filenumber.write('writeGrid 10.')
-            filenumber.write('convLimit 0.01')
-            filenumber.write('nPhotons 0')
-            filenumber.write('LStar 0')
-            filenumber.write('TStellar 0')
-            filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'")
-            filenumber.write('diffuseSource ' + sss(luminosity[j]) + ' ' + sss(tstellar) + " 'blackbody' " + sss(nphotons[j]) + " 1")
+            filenumber.write('autoPackets 0.20 2. 900000000\n')
+            filenumber.write('writeGrid 10.\n')
+            filenumber.write('convLimit 0.01\n')
+            filenumber.write('nPhotons 0\n')
+            filenumber.write('LStar 0\n')
+            filenumber.write('TStellar 0\n')
+            filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'\n")
+            filenumber.write('diffuseSource ' + sss(luminosity[j]) + ' ' + sss(tstellar) + " 'blackbody' " + sss(nphotons[j]) + " 1\n")
     #1 is for smooth
-            filenumber.write('getEquivalentTau')
+            filenumber.write('getEquivalentTau\n')
         else:
     #input for the RSGs
-            filenumber.write('autoPackets 0.10 3. 1000000000')
+            filenumber.write('autoPackets 0.10 3. 1000000000\n')
     #.20 5. 100000000
     #when convergence increase is less than first number percent increase, increase the
     #number of photons by 2nd number, to a maximum of the third.
-            filenumber.write('writeGrid 80.')
-            filenumber.write('convLimit 0.05')
+            filenumber.write('writeGrid 80.\n')
+            filenumber.write('convLimit 0.05\n')
             filenumber.write('nPhotons ' + sss(nphotons[j]))
-            filenumber.write('LStar ' + sss(lstar))
-            filenumber.write('TStellar ' + sss(tstellar))
+            filenumber.write('\nLStar ' + sss(lstar))
+            filenumber.write('\nTStellar ' + sss(tstellar))
     #IF THE PAHS are turned on...
             if (includePAHS == "includePAHS"):
-                filenumber.write("dustFile 'input/grainspecies.dat' 'input/PAH_sizes.dat'")
+                filenumber.write("\ndustFile 'input/grainspecies.dat' 'input/PAH_sizes.dat'\n")
             #input / PAH_sizes.dat
             # input / mrn.dat
-                filenumber.write('quantumHeatGrain .005 90')
+                filenumber.write('quantumHeatGrain .005 90\n')
             #size, convergence
             # .04 is 400 angstroms...
-                print('Qheating turned ON!!!')
+                print('Qheating turned ON!!!\n')
             else:
-                filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'")
+                filenumber.write("\ndustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'\n")
 
     #all
-        filenumber.write('output')
+        filenumber.write('output\n')
 
-        filenumber.write('contShape  blackbody')
-        filenumber.write('nebComposition noGas')
+        filenumber.write('contShape  blackbody\n')
+        filenumber.write('nebComposition noGas\n')
         filenumber.write('maxIterateMC ' + ssi(numiterations[j]) + ' ' + ssf(convpercent[j]))
-        filenumber.write("Ndust file '" + sss(nduststr) + "'")
-        filenumber.write('Rin ' + sss(rin[j]))
-        filenumber.write('Rout ' + sss(rout[j]))
-        filenumber.write('nx ' + sss(nvalue)) #1 was already subtracted if it is diffuse
-        filenumber.write('ny ' + sss(nvalue))
-        filenumber.write('nz ' + sss(nvalue))
+        filenumber.write("\nNdust file '" + sss(nduststr) + "'")
+        filenumber.write('\nRin ' + sss(rin[j]))
+        filenumber.write('\nRout ' + sss(rout[j]))
+        filenumber.write('\nnx ' + sss(nvalue)) #1 was already subtracted if it is diffuse
+        filenumber.write('\nny ' + sss(nvalue))
+        filenumber.write('\nnz ' + sss(nvalue))
     else:
 
         if (symmetric == 0):
@@ -80,57 +80,57 @@ def make_input_kelsey(j, distributionFile, torus, diffuse, n, luminosity, tstell
         else:
             nvalue = n
         if ((symmetric == 1) and (diffuse == 0)):
-            filenumber.write('symmetricXYZ')
+            filenumber.write('symmetricXYZ\n')
 
             # FOR ALL
         if (diffuse):
             # input for SN
-            filenumber.write('autoPackets 0.20 2. 900000000')
-            filenumber.write('writeGrid 10.')
-            filenumber.write('convLimit 0.01')
-            filenumber.write('nPhotons 0')
-            filenumber.write('LStar 0')
-            filenumber.write('TStellar 0')
-            filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'")
+            filenumber.write('autoPackets 0.20 2. 900000000\n')
+            filenumber.write('writeGrid 10.\n')
+            filenumber.write('convLimit 0.01\n')
+            filenumber.write('nPhotons 0\n')
+            filenumber.write('LStar 0\n')
+            filenumber.write('TStellar 0\n')
+            filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'\n")
             filenumber.write(
-                'diffuseSource ' + sss(luminosity) + ' ' + sss(tstellar) + " 'blackbody' " + sss(nphotons) + " 1")
+                'diffuseSource ' + sss(luminosity) + ' ' + sss(tstellar) + " 'blackbody' " + sss(nphotons) + " 1\n")
             # 1 is for smooth
-            filenumber.write('getEquivalentTau')
+            filenumber.write('getEquivalentTau\n')
         else:
             # input for the RSGs
-            filenumber.write('autoPackets 0.10 3. 1000000000')
+            filenumber.write('autoPackets 0.10 3. 1000000000\n')
             # .20 5. 100000000
             # when convergence increase is less than first number percent increase, increase the
             # number of photons by 2nd number, to a maximum of the third.
-            filenumber.write('writeGrid 80.')
-            filenumber.write('convLimit 0.05')
+            filenumber.write('writeGrid 80.\n')
+            filenumber.write('convLimit 0.05\n')
             filenumber.write('nPhotons ' + sss(nphotons))
-            filenumber.write('LStar ' + sss(lstar))
-            filenumber.write('TStellar ' + sss(tstellar))
+            filenumber.write('\nLStar ' + sss(lstar))
+            filenumber.write('\nTStellar ' + sss(tstellar))
             # IF THE PAHS are turned on...
             if (includePAHS == "includePAHS"):
-                filenumber.write("dustFile 'input/grainspecies.dat' 'input/PAH_sizes.dat'")
+                filenumber.write("\ndustFile 'input/grainspecies.dat' 'input/PAH_sizes.dat'\n")
                 # input / PAH_sizes.dat
                 # input / mrn.dat
-                filenumber.write('quantumHeatGrain .005 90')
+                filenumber.write('quantumHeatGrain .005 90\n')
                 # size, convergence
                 # .04 is 400 angstroms...
-                print('Qheating turned ON!!!')
+                print('Qheating turned ON!!!\n')
             else:
-                filenumber.write("dustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'")
+                filenumber.write("\ndustFile 'input/grainspecies.dat' 'input/" + distributionFile + "'\n")
 
                 # all
-        filenumber.write('output')
+        filenumber.write('output\n')
 
-        filenumber.write('contShape  blackbody')
-        filenumber.write('nebComposition noGas')
+        filenumber.write('contShape  blackbody\n')
+        filenumber.write('nebComposition noGas\n')
         filenumber.write('maxIterateMC ' + ssi(numiterations) + ' ' + ssf(convpercent))
-        filenumber.write("Ndust file '" + sss(nduststr) + "'")
-        filenumber.write('Rin ' + sss(rin))
-        filenumber.write('Rout ' + sss(rout))
-        filenumber.write('nx ' + sss(nvalue))  # 1 was already subtracted if it is diffuse
-        filenumber.write('ny ' + sss(nvalue))
-        filenumber.write('nz ' + sss(nvalue))
+        filenumber.write("\nNdust file '" + sss(nduststr) + "'")
+        filenumber.write('\nRin ' + sss(rin))
+        filenumber.write('\nRout ' + sss(rout))
+        filenumber.write('\nnx ' + sss(nvalue))  # 1 was already subtracted if it is diffuse
+        filenumber.write('\nny ' + sss(nvalue))
+        filenumber.write('\nnz ' + sss(nvalue))
 
     filenumber.close()
 
@@ -153,7 +153,7 @@ def make_grainspecies_kelsey(name, file, percent, silicatepercent, AMCpercent):
         else:
             filenumber.write(ssi(2))
             filenumber.write(" 'dustData/sil-oss1.nk' " + sss(silicatepercent / 100.0))
-            filenumber.write(" 'dustData/amC-hann.nk' " + sss(AMCpercent / 100.0))
+            filenumber.write("\n 'dustData/amC-hann.nk' " + sss(AMCpercent / 100.0))
             if (silicatepercent / 100.0 + AMCpercent / 100.0 != 1):
                 print('error in grainspecies!!!')
     else:
@@ -191,12 +191,12 @@ def makeGrainSizeDistribution(*args):
 
     lun = open('/Users/' + username + '/mocassin-rw_changes/input/' + outfile)
 
-    lun.write(nsizes + ' sizes ')
+    lun.write(nsizes + ' sizes \n')
     for i in range(1, nsizes):
-        lun.write(i + "   " + 10.0 ^ (np.alog10(amin) + (i - 1) * astep) + "   " (10.0 ^ (np.alog10(amin) + (i - 1) * astep)) ^ (-slope))
+        lun.write(i + "   " + 10.0 ^ (np.alog10(amin) + (i - 1) * astep) + "   " (10.0 ^ (np.alog10(amin) + (i - 1) * astep)) ^ (-slope) + "\n")
 
-    lun.write('')
-    lun.write('')
+    lun.write('\n')
+    lun.write('\n')
     lun.write('slope (p): ' + slope)
     lun.close()
 
@@ -663,58 +663,58 @@ def SUPER_KELSEY(infile, distributionFile, errorcheck = "errorcheck"):
 
 
         filenumber = open('/Users/' + username + '/mocassin-rw_changes/output/' + outfoldername + '/KELSEY_output.txt', 'w')
-        filenumber.write("all KELSEY_input.txt variables...")
+        filenumber.write("all KELSEY_input.txt variables...\n")
 
     #make an KELSEY output with what KELSEY did.
         if (isinstance(starname, list)):
-            filenumber.write(starname[j], n[j], rin[j], rout[j], p[j], nphotons[j],numiterations[j], convpercent[j], diffuse[j], temperature[j], luminosity[j], silicatepercent[j], AMCpercent[j], torus[j])
+            filenumber.write(starname[j], n[j], rin[j], rout[j], p[j], nphotons[j],numiterations[j], convpercent[j], diffuse[j], temperature[j], luminosity[j], silicatepercent[j], AMCpercent[j], torus[j],"\n")
 
-            filenumber.write("inputs to mocplot")
-            filenumber.write(rin[j], rout[j], p[j], lstar, tstellar, ' ' + starname[j], diffuse[j], ' ' + username, ' ' + outfoldername, starnum, torus[j], silicatepercent[j], AMCpercent[j], ' ' + name_gs[0], ' ' + name_gs[1], ' ' + name_gs[2], ' ' + name_gs[3], ' ' + filename_gs[0], ' ' + filename_gs[1], ' ' + filename_gs[2], ' ' + filename_gs[3], percent_gs[0], percent_gs[1], percent_gs[2], percent_gs[3])
-            filenumber.write("starname        ", starname[j])
-            filenumber.write("n               ", n[j])
-            filenumber.write("rin             ", rin[j])
-            filenumber.write("rout            ", rout[j])
-            filenumber.write("p               ", p[j])
-            filenumber.write("nphotons        ", nphotons[j])
-            filenumber.write("numiterations   ", numiterations[j])
-            filenumber.write("convpercent     ", convpercent[j])
-            filenumber.write("diffuse         ", diffuse[j])
-            filenumber.write("temperature     ", temperature[j])
-            filenumber.write("luminosity      ", luminosity[j])
-            filenumber.write("silicatepercent ", silicatepercent[j])
-            filenumber.write("AMCpercent      ", AMCpercent[j])
+            filenumber.write("inputs to mocplot\n")
+            filenumber.write(rin[j], rout[j], p[j], lstar, tstellar, ' ' + starname[j], diffuse[j], ' ' + username, ' ' + outfoldername, starnum, torus[j], silicatepercent[j], AMCpercent[j], ' ' + name_gs[0], ' ' + name_gs[1], ' ' + name_gs[2], ' ' + name_gs[3], ' ' + filename_gs[0], ' ' + filename_gs[1], ' ' + filename_gs[2], ' ' + filename_gs[3], percent_gs[0], percent_gs[1], percent_gs[2], percent_gs[3]),"\n"
+            filenumber.write("starname        ", starname[j],"\n")
+            filenumber.write("n               ", n[j],"\n")
+            filenumber.write("rin             ", rin[j],"\n")
+            filenumber.write("rout            ", rout[j],"\n")
+            filenumber.write("p               ", p[j],"\n")
+            filenumber.write("nphotons        ", nphotons[j],"\n")
+            filenumber.write("numiterations   ", numiterations[j],"\n")
+            filenumber.write("convpercent     ", convpercent[j],"\n")
+            filenumber.write("diffuse         ", diffuse[j],"\n")
+            filenumber.write("temperature     ", temperature[j],"\n")
+            filenumber.write("luminosity      ", luminosity[j],"\n")
+            filenumber.write("silicatepercent ", silicatepercent[j],"\n")
+            filenumber.write("AMCpercent      ", AMCpercent[j],"\n")
         else:
             filenumber.write(starname, n, rin, rout, p, nphotons, numiterations, convpercent,
-                             diffuse, temperature, luminosity, silicatepercent, AMCpercent, torus)
+                             diffuse, temperature, luminosity, silicatepercent, AMCpercent, torus,"\n")
 
-            filenumber.write("inputs to mocplot")
+            filenumber.write("inputs to mocplot\n")
             filenumber.write(rin[j], rout, p, lstar, tstellar, ' ' + starname, diffuse, ' ' + username,
                              ' ' + outfoldername, starnum, torus, silicatepercent, AMCpercent,
                              ' ' + name_gs[0], ' ' + name_gs[1], ' ' + name_gs[2], ' ' + name_gs[3],
                              ' ' + filename_gs[0], ' ' + filename_gs[1], ' ' + filename_gs[2], ' ' + filename_gs[3],
-                             percent_gs[0], percent_gs[1], percent_gs[2], percent_gs[3])
-            filenumber.write("starname        ", starname)
-            filenumber.write("n               ", n)
-            filenumber.write("rin             ", rin)
-            filenumber.write("rout            ", rout)
-            filenumber.write("p               ", p)
-            filenumber.write("nphotons        ", nphotons)
-            filenumber.write("numiterations   ", numiterations)
-            filenumber.write("convpercent     ", convpercent)
-            filenumber.write("diffuse         ", diffuse)
-            filenumber.write("temperature     ", temperature)
-            filenumber.write("luminosity      ", luminosity)
-            filenumber.write("silicatepercent ", silicatepercent)
-            filenumber.write("AMCpercent      ", AMCpercent)
+                             percent_gs[0], percent_gs[1], percent_gs[2], percent_gs[3],"\n")
+            filenumber.write("starname        ", starname,"\n")
+            filenumber.write("n               ", n,"\n")
+            filenumber.write("rin             ", rin,"\n")
+            filenumber.write("rout            ", rout,"\n")
+            filenumber.write("p               ", p,"\n")
+            filenumber.write("nphotons        ", nphotons,"\n")
+            filenumber.write("numiterations   ", numiterations,"\n")
+            filenumber.write("convpercent     ", convpercent,"\n")
+            filenumber.write("diffuse         ", diffuse,"\n")
+            filenumber.write("temperature     ", temperature,"\n")
+            filenumber.write("luminosity      ", luminosity,"\n")
+            filenumber.write("silicatepercent ", silicatepercent,"\n")
+            filenumber.write("AMCpercent      ", AMCpercent,"\n")
         filenumber.write("                ")
-        filenumber.write("starnum         ", starnum)
-        filenumber.write("tstellar        ", tstellar)
-        filenumber.write("Lstar           ", lstar)
-        filenumber.write("  ")
-        filenumber.write('namegs', name_gs)
-        filenumber.write('filenamegs', filename_gs)
-        filenumber.write('percent', percent_gs)
+        filenumber.write("starnum         ", starnum,"\n")
+        filenumber.write("tstellar        ", tstellar,"\n")
+        filenumber.write("Lstar           ", lstar,"\n")
+        filenumber.write("  \n")
+        filenumber.write('namegs', name_gs,"\n")
+        filenumber.write('filenamegs', filename_gs,"\n")
+        filenumber.write('percent', percent_gs,"\n")
 
         filenumber.close()
 
