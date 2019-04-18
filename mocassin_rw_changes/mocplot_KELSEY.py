@@ -149,7 +149,7 @@ def star_dust_mass(mass, chisqr, starname, runnum, username):
 
 def extra_moc_plot(flux_input, lam_input, flux_moc, lam_moc, error_flux_input, chi_sqr):
     #srw.SavWriter('extra_moc_plot.sav',flux_input, lam_input, flux_moc, lam_moc, error_flux_input)
-    f = open('extra_moc_plot.txt', 'w')
+    f = open('extra_moc_plot.txt', 'w+')
     f.write('flux_input = ' + str(flux_input))
     f.write('\nlam_input = ' + str(lam_input))
     f.write('\nflux_moc = ' + str(flux_moc))
@@ -225,7 +225,7 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
 
     sk.cd_kelsey('/Users/' + username + '/mocassin-rw_changes/output')
     #srw.SavWriter('mocplot_variables.sav',rin, rout, rho, lum, tstellar, starname, diffuse, distance, symmetric,username, outfoldername, starnum, donut, sil, carb, name_gs, filename_gs, percent_gs, totaltime,infile, nduststr, distributionFile)
-    f = open('mocplot_variables.txt', 'w')
+    f = open('mocplot_variables.txt', 'w+')
     f.write("rin = " + str(rin))
     f.write("\nrout = " + str(rout))
     f.write("\nrho = " + str(rho))
@@ -259,7 +259,7 @@ def mocplot_KELSEY(rin, rout, rho, lum, tstellar, starname, diffuse, distance, s
         KELSEY_number = int(numbers[0]) + 1
     id = int(KELSEY_number)
     r.close()
-    writer = open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt', 'w')
+    writer = open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt', 'w+')
     writer.write(str(KELSEY_number))
     writer.close()
     sil = np.floor(sil)

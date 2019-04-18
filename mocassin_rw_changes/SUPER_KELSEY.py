@@ -12,7 +12,7 @@ import mocplot_KELSEY as mk
 def make_input_kelsey(j, distributionFile, torus, diffuse, n, luminosity, tstellar, nphotons,lstar, numiterations, convpercent, rin, rout, symmetric, username, nduststr, includePAHS = "includePAHS"):
 #make the input.in file
 
-    filenumber = open('/Users/' + username + '/mocassin-rw_changes/input/input.in', "w")
+    filenumber = open('/Users/' + username + '/mocassin-rw_changes/input/input.in', "w+")
 
 #super input
 
@@ -136,7 +136,7 @@ def make_input_kelsey(j, distributionFile, torus, diffuse, n, luminosity, tstell
 
 
 def make_grainspecies_kelsey(name, file, percent, silicatepercent, AMCpercent):
-    filenumber = open('input/grainspecies.dat', "w")
+    filenumber = open('input/grainspecies.dat', "w+")
 
     numspecies = 0
     index = []
@@ -218,7 +218,7 @@ def mocassin_fail_kelsey(j, username, diffuse, directoryname, starname):
         KELSEY_number = int(numbers[0]) + 1
     id = int(KELSEY_number)
     r.close()
-    writer = open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt', 'w')
+    writer = open('/Users/' + username + '/mocassin-rw_changes/KELSEY_number.txt', 'w+')
     writer.write(str(KELSEY_number))
     writer.close()
     #import savReader2 as srw2
@@ -662,7 +662,7 @@ def SUPER_KELSEY(infile, distributionFile, errorcheck = "errorcheck"):
         cd_kelsey('/Users/' + username + '/mocassin-rw_changes')
 
 
-        filenumber = open('/Users/' + username + '/mocassin-rw_changes/output/' + outfoldername + '/KELSEY_output.txt', 'w')
+        filenumber = open('/Users/' + username + '/mocassin-rw_changes/output/' + outfoldername + '/KELSEY_output.txt', 'w+')
         filenumber.write("all KELSEY_input.txt variables...\n")
 
     #make an KELSEY output with what KELSEY did.
