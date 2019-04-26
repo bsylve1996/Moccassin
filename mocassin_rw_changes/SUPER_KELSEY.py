@@ -661,7 +661,7 @@ def SUPER_KELSEY(infile, distributionFile, errorcheck = "errorcheck"):
 
         cd_kelsey('/Users/' + username + '/mocassin-rw_changes')
 
-
+        print(os.getcwd())
         filenumber = open('/Users/' + username + '/mocassin-rw_changes/output/' + outfoldername + '/KELSEY_output.txt', 'w+')
         filenumber.write("all KELSEY_input.txt variables...\n")
 
