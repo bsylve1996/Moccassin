@@ -101,7 +101,9 @@ def plot_dust_temp_kelsey(username, distributionFile, symmetric, errorcheck = "e
 
     speciesfile = 'input/grainspecies.dat' #'primary_grainspecies.dat'
     lun = Scanner(file=speciesfile)
-    nspecies =  lun.next_int()
+    nspecies = 0
+    if lun.has_next(): 
+        nspecies =  lun.next_int()
     dustnames = []
     dustabundances = []
     while(lun.has_next()):
